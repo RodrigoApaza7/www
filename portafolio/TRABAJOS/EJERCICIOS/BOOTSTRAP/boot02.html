@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Documento - Ejemplo Bootstrap</title>
+
+  <!-- Si prefieres usar tu copia local, deja la línea siguiente como antes:
+       <link rel="stylesheet" href="bootstrap-5.3.8-dist/css/bootstrap.min.css">
+     Aquí dejo el mismo path que usabas. -->
+  <link rel="stylesheet" href="bootstrap-5.3.8-dist/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container border my-4 p-3">
+    <!-- Primera fila: 3 columnas iguales, imagen responsive centrada -->
+    <div class="row mb-3">
+      <div class="col border d-flex align-items-center justify-content-center">1</div>
+
+      <div class="col border d-flex align-items-center justify-content-center">
+        <!-- img-fluid para responsive, rounded, y centrada con mx-auto d-block -->
+        <img src="image.png" alt="Descripción de la imagen" class="rounded img-fluid mx-auto d-block" />
+      </div>
+
+      <div class="col border d-flex align-items-center justify-content-center">3</div>
+    </div>
+
+    <!-- Segunda fila: columnas con anchos fijos (suman 12) -->
+    <div class="row mb-3">
+      <div class="col-1 border text-center">13</div>
+      <div class="col-2 border text-center">23</div>
+      <div class="col-3 border text-center">33</div>
+      <div class="col-6 border text-center">44</div>
+    </div>
+
+    <!-- Tercera fila: ejemplo con breakpoint md (se adaptan en pantallas medianas) -->
+    <div class="row mb-3">
+      <div class="col-12 col-md-1 border text-center">66</div>
+      <div class="col-12 col-md-2 border text-center">77</div>
+      <div class="col-12 col-md-3 border text-center">88</div>
+      <div class="col-12 col-md-6 border text-center">99</div>
+    </div>
+
+    <!-- Cuarta fila: ejemplo con breakpoint sm -->
+    <div class="row mb-3">
+      <div class="col-12 col-sm-1 border text-center">66</div>
+      <div class="col-12 col-sm-2 border text-center">77</div>
+      <div class="col-12 col-sm-3 border text-center">88</div>
+      <div class="col-12 col-sm-6 border text-center">99</div>
+    </div>
+  </div>
+
+  <!-- Título grande centrado -->
+  <div class="display-1 text-center my-4">HOLA</div>
+
+  <!-- Lista con ol anidado (formato correcto) -->
+  <ul>
+    <li>1</li>
+    <li>
+      2
+      <ol>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+      </ol>
+    </li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+  </ul>
+
+  <!-- Tabla: clase correcta de Bootstrap para bordes y striped -->
+  <div class="container my-4">
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>1na</th>
+          <th>2n</th>
+          <th>3n</th>
+          <th>4n</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1n</th>
+          <th>2n</th>
+          <th>3n</th>
+          <th>4n</th>
+        </tr>
+        <tr>
+          <td>Data 1</td>
+          <td>Data 2</td>
+          <td>Data 3</td>
+          <td>Data 3</td>
+        </tr>
+        <tr>
+          <td>Data 4</td>
+          <td>Data 5</td>
+          <td>Data 6</td>
+          <td>Data 6</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Si usas la versión local: -->
+  <script src="bootstrap-5.3.8-dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

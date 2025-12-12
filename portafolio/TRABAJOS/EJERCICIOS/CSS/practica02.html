@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>practica02</title>
+    <style>
+        h1
+        {
+            color:red;
+        }
+        h2
+        {
+            color:blue;
+        }
+        p
+        {
+            border: 1px solid green;
+        }
+        .zerru
+        {
+            color: peru;
+        }
+        /*por id es unico*/
+        #surzerru 
+        {
+            border: 2px dotted black;
+        }
+        /*se modifica los dos*/
+        #supertitulo,h2
+        {
+            background-color: pink;
+        }
+        /*todo los parrafos que tienen negrita osea <strong>texto</strong>*/
+        p strong
+        {
+            color: #00FFF6;
+            font-size: 20px;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 30px;
+            border:1px solid orange;
+            display: inline-block;
+            padding: 10px;
+            border-right: 3px dotted blue;
+            border-radius: 40px ;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="supertitulo">hola h1 id supertitulo</h1>
+    <h2 id="surzerru">hola h2 id surzerru</h2>
+    <!--puede haber varios con la misma clase ejem: class="zerru", la clase es zerru-->
+    <h1 class="zerru">hola</h1>
+    <p>Lorem ipsum <strong>dolor</strong> sit amet consectetur adipisicing elit. Doloremque corrupti dolor culpa ex eveniet molestiae accusantium repellendus quae alias eum provident esse dolore cum facilis, error unde, fugiat mollitia ratione?</p>
+    <span class="zerru">hola <strong>gaaa</strong> span</span>
+</body>
+</html>

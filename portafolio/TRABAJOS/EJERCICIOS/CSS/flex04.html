@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            display: flex;
+            justify-content: center;
+        }
+        .box {
+            border: 3px solid black;
+            height: 100vh;
+            width: 80%;
+            background: orange;
+        }
+        .box .header {
+            display: flex;
+            border: 1px solid black;
+        }
+        .box .header .logo {
+            background-color: yellow;
+            height: 40px;
+            width: 100px;
+        }
+        .box .header .tobbar {
+            background-color: chartreuse;
+            height: 40px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .box .header .tobbar .banner {
+            background-color: darkgreen;
+            height: 20px;
+            width: 100%;
+        }   
+        .box .header .tobbar .menu {
+            background-color: cadetblue;
+            height: 20px;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="box">
+            <div class="header">
+                <div class="logo"></div>
+                <div class="tobbar">
+                    <div class="banner"></div>
+                    <div class="menu">
+                    </div>
+                </div>
+                <div class="main">
+                    <div class="options"></div>
+                    <div class="content"></div>
+                </div>
+            </div>
+        </div>
+</body>
+
+</html>

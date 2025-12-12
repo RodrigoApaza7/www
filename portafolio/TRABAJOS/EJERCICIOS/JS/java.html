@@ -1,0 +1,23 @@
+<html lang="en">
+<head>
+    <title>Document</title>
+    <script>
+    function calcular(){
+    let a = document.querySelector("#vana").value
+    let b = document.querySelector("#vanb").value
+    c = parseFloat (a) +  parseFloat(b)
+    document.querySelector("#vanc").value = c
+    }
+    </script>
+</head>
+<body>
+
+Ingese A:
+<input type="text" id="vana"></br>
+Ingese B:
+<input type="text" id="vanb"></br>
+<button onclick="calcular()">Calcular</button></br>
+Resultado:
+<input type="text" id="vanc"></br>
+</body>
+</html>

@@ -1,0 +1,92 @@
+/* Fuente global */
+body {
+  font-family: "Poppins", sans-serif;
+  background: #f2f5fb;
+  margin: 0;
+  padding: 0;
+}
+
+/* ===== Hero ===== */
+.hero {
+  background: linear-gradient(135deg, #4b2eb3, #8a3fe2);
+  color: #fff;
+  padding: 60px 20px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.hero-content h1 {
+  font-size: 2.3rem;
+  font-weight: 700;
+}
+
+.hero-content p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.profile-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 5px solid rgba(255,255,255,0.7);
+  margin-bottom: 15px;
+}
+
+/* ===== Tarjetas (cards) ===== */
+.custom-card {
+  border: none;
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.section-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+/* ===== Listas ===== */
+.list-custom a {
+  text-decoration: none;
+  font-weight: 500;
+  color: #4b2eb3;
+}
+
+.list-custom a:hover {
+  color: #8a3fe2;
+}
+
+/* ===== Subtítulos ===== */
+.sub-title {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+/* ===== Enlaces especiales =====*/
+.link-custom {
+  color: #6f2feb;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.link-custom:hover {
+  color: #a759ff;
+}
+
+/* ===== Acordeón ===== */
+.accordion-button {
+  font-weight: 600;
+  background-color: #ede9ff;
+  color: #37007b;
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: #d8cbff;
+  color: #2a0060;
+}
+
+.accordion-body {
+  background-color: #f7f5ff;
+}
