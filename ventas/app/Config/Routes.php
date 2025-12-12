@@ -7,4 +7,4 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Home::index');
 $routes->get('/login', 'Login::index');
-$routes->post('/login/autenticar', 'Login::autenticar');
+$routes->post('/login', 'Login::autenticar');
