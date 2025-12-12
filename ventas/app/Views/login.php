@@ -18,7 +18,7 @@
             </div>
         <?php endif; ?>
 
-        <form action="/login" method="POST">
+        <form action="/login/autenticar" method="POST">
             <div class="mb-3">
                 <label class="form-label">Correo electrónico</label>
                 <input type="email" class="form-control" name="email" required>
