@@ -69,7 +69,7 @@
                     <div class="col-md-4">
                         <div class="card shadow-sm p-3">
                             <h5 class="card-title">Ventas Hoy</h5>
-                            <p class="display-6">S/ 0.00</p>
+                            <p class="display-6">S/ 1000.00</p>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -80,7 +80,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="card shadow-sm p-3">
-                            <h5 class="card-title">Clientes Registrados</h5>
+                            <h5 class="card-title">Clientes <Registrados></Registrados></h5>
                             <p class="display-6">0</p>
                         </div>
                     </div>
