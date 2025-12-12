@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Models\UsuariosModel;
 
-class Login extends BaseController
+class AuthController extends BaseController
 {
     public function index()
     {
