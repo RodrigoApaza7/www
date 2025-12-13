@@ -35,12 +35,12 @@ class AuthController extends BaseController
             'logged_in' => true
         ]);
 
-        return redirect()->to(base_url('dashboard'));
+        return redirect()->to('dashboard');
     }
 
     public function logout()
     {
         session()->destroy();
-        return redirect()->to(base_url('login'));
+        return redirect()->to('login');
     }
 }

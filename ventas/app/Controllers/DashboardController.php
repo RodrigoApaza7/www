@@ -7,7 +7,7 @@ class DashboardController extends BaseController
     public function index()
     {
         if (!session()->get('logged_in')) {
-            return redirect()->to(base_url('login'));
+            return redirect()->to('login');
         }
 
         return view('dashboard');
