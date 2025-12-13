@@ -33,7 +33,7 @@
 
  database.default.hostname = localhost
  database.default.database = db_ventas
- database.default.username = usuario_falso
+ database.default.username = ventas_user
  database.default.password = ventas123
  database.default.DBDriver = MySQLi
 # database.default.DBPrefix =
