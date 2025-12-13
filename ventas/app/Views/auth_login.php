@@ -20,8 +20,8 @@
 
         <form action="<?= base_url('login/autenticar') ?>" method="post">
             <div class="mb-3">
-                <label class="form-label">Correo electrónico</label>
-                <input type="email" class="form-control" name="email" required>
+                <label class="form-label">Usuario</label>
+                <input type="text" class="form-control" name="usuario" required>
             </div>
 
             <div class="mb-3">
