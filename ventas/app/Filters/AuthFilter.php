@@ -20,7 +20,11 @@ class AuthFilter implements FilterInterface
     }
 
     public $aliases = [
-    'auth' => \App\Filters\AuthFilter::class,
+        'auth' => \App\Filters\AuthFilter::class,
+    ];
+
+    public $filters = [
+        'auth' => ['before' => ['dashboard*']],
     ];
 
 }
