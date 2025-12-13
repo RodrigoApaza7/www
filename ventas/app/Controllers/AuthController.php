@@ -17,7 +17,7 @@ class AuthController extends BaseController
         $password = $this->request->getPost('password');
 
         $usuarioModel = new UsuariosModel();
-        $usuario = $usuarioModel->where('email', $email)->first();
+        $usuario = $usuarioModel->where('usuario', $usuarioInput)->first();
 
         if (!$usuario) {
             return redirect()->to('login')->with('error', 'Usuario no encontrado');
