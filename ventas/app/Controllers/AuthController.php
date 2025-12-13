@@ -13,7 +13,7 @@ class AuthController extends BaseController
 
     public function autenticar()
     {
-        $email = $this->request->getPost('email');
+        $email = $this->request->getPost('usuario');
         $password = $this->request->getPost('password');
 
         $usuarioModel = new UsuariosModel();
