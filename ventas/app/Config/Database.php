@@ -27,8 +27,8 @@ class Database extends Config
     public array $default = [
         'DSN'          => '',
         'hostname'     => 'localhost',
-        'username'     => 'root',
-        'password'     => '',
+        'username'     => 'ventas_user',
+        'password'     => 'ventas123',
         'database'     => 'db_ventas',
         'DBDriver'     => 'MySQLi',
         'DBPrefix'     => '',
