@@ -20,11 +20,11 @@ class AuthController extends BaseController
         $usuario = $usuarioModel->where('email', $email)->first();
 
         if (!$usuario) {
-            return redirect()->back()->with('error', 'Usuario no encontrado');
+            return redirect()->to('login')->with('error', 'Usuario no encontrado');
         }
 
         if (!password_verify($password, $usuario['password'])) {
-            return redirect()->back()->with('error', 'Contraseña incorrecta');
+            return redirect()->to('login')->with('error', 'Contraseña incorrecta');
         }
 
         // Guardar sesión
