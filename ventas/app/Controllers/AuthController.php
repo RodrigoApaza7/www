@@ -20,11 +20,11 @@ class AuthController extends BaseController
         $usuario = $usuarioModel->where('usuario', $usuarioInput)->first();
 
         if (!$usuario) {
-            return redirect()->to('login')->with('error', 'Usuario no encontrado');
+            return redirect()->to(site_url('login'));
         }
 
         if (!password_verify($password, $usuario['password'])) {
-            return redirect()->to('login')->with('error', 'Contraseña incorrecta');
+            return redirect()->to(site_url('login'));
         }
 
         session()->set([
@@ -34,7 +34,9 @@ class AuthController extends BaseController
             'logged_in' => true
         ]);
 
-        return redirect()->to(site_url('dashboard'));
+        // FORZAR REDIRECT
+        header('Location: ' . site_url('dashboard'));
+        exit;
     }
 
     public function logout()
