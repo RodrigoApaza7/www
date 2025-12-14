@@ -19,6 +19,7 @@
         <?php endif; ?>
 
         <form action="<?= site_url('login/autenticar') ?>" method="post">
+            <?= csrf_field() ?>
             <div class="mb-3">
                 <label class="form-label">Usuario</label>
                 <input type="text" class="form-control" name="usuario" required>
