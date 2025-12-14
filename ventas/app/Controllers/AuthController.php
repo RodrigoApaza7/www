@@ -13,7 +13,6 @@ class AuthController extends BaseController
 
     public function autenticar()
     {
-        die('ENTRE A AUTENTICAR');
         $usuarioInput = $this->request->getPost('usuario');
         $password = $this->request->getPost('password');
 
@@ -35,9 +34,7 @@ class AuthController extends BaseController
             'logged_in' => true
         ]);
 
-        // FORZAR REDIRECT
-        header('Location: ' . site_url('dashboard'));
-        exit;
+        return redirect()->to(site_url('dashboard'));
     }
 
     public function logout()
