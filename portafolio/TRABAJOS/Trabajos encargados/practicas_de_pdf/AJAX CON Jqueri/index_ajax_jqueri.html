@@ -3,13 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="jquery-3.7.1.min.js"></script>
     <title>Document</title>
 </head>
 <body>
-    <script src="jquery-3.7.1.min.js"></script>
+    <button>AJAX</button>
+    <div id="respuesta"></div>
     <script>
         $(Document).ready(function(){
-            alert("Hola Mundo con Jquery y AJAX");
+            $a(button).click(function(){
+                $.ajax({
+                    url:'function.html',
+                    beforeSend:function(){
+                        $('#respuesta').html('Cargando informacion');
+                    },
+                    success:function(data){
+                        $('#respuesta').html(data);
+                    }   
+                })
+            });
         })
     </script>
 </body>
