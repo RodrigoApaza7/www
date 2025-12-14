@@ -13,11 +13,14 @@ if ($conexion->connect_error) {
     die($conexion->connect_error);
 }
 
+$nombres   = $_POST['nombres'];
+$apellidos = $_POST['apellidos'];
+
 $sql = "INSERT INTO personas (nombres, apellidos)
-        VALUES ('AAA', 'BBB')";
+        VALUES ('$nombres', '$apellidos')";
 
 if (!$conexion->query($sql)) {
     die($conexion->error);
 }
 
-echo "INSERT OK";
+echo "Guardado correctamente";
