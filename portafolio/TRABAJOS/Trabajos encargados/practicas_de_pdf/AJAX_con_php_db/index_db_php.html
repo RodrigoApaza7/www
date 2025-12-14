@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>AJAX con PHP</title>
+    <script src="jquery-3.7.1.min.js"></script>
+</head>
+<body>
+
+<h2>Formulario</h2>
+
+<form id="formulario">
+    <input type="text" name="nombres" placeholder="Nombres" required>
+    <input type="text" name="apellidos" placeholder="Apellidos" required>
+    <button type="submit">Guardar</button>
+</form>
+
+<hr>
+
+<div id="respuesta"></div>
+
+<script>
+$(document).ready(function(){
+
+    $('#formulario').submit(function(e){
+        e.preventDefault();
+
+        $.ajax({
+            url: 'procesar.php',
+            type: 'POST',
+            data: $(this).serialize(),
+            success: function(msg){
+                alert(msg);
+                cargarDatos();
+            }
+        });
+    });
+
+    function cargarDatos(){
+        $.ajax({
+            url: 'consultar.php',
+            dataType: 'json',
+            success: function(data){
+                let html = '';
+                for(let i=0;i<data.length;i++){
+                    html += data[i][0] + ' - ' + data[i][1] + ' ' + data[i][2] + '<br>';
+                }
+                $('#respuesta').html(html);
+            }
+        });
+    }
+
+    cargarDatos();
+});
+</script>
+
+</body>
+</html>
