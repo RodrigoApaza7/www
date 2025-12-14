@@ -15,21 +15,23 @@
     <script>
         $(document).ready(function(){
             $('button').click(function(){
-                $ajax({
-                    url : 'datos.json',
-                    beforesend:function(){
+                $.ajax({
+                    url: 'datos.json',
+                    dataType: 'json',
+                    beforeSend: function(){
                         $('#respuesta').text('Cargando datos...');
                     },
-                    succes:function(data){
+                    success: function(data){
                         var cont = '';
-                        for(var item in data){
-                            cont += item + ":"+data[item]+"<br>";
+                        for (var item in data) {
+                            cont += item + ": " + data[item] + "<br>";
                         }
                         $('#respuesta').html(cont);
                     }
-                })
+                });
             });
-        })
+        });
     </script>
+
 </body>
 </html>
