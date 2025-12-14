@@ -2,31 +2,34 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script></script>
-    <title>Document</title>
+    <script src="/portafolio/TRABAJOS/Trabajos encargados/practicas_de_pdf/AJAX CON Jqueri/jquery-3.7.1.min.js"></script>
+    <title>Ajax con Jqueri y Json</title>
 </head>
 <body> 
     <h1>AJAX con JSON</h1>
-    <button id="loadDataBtn">Cargar Datos</button>
-    <div id="dataContainer"></div>
+    <button>Cargar Datos</button>
+    <div id="respuesta"></div>
 
     <script>
-        document.getElementById('loadDataBtn').addEventListener('click', function() {
-            fetch('data.json')
-                .then(response => response.json())
-                .then(data => {
-                    const container = document.getElementById('dataContainer');
-                    container.innerHTML = '';
-
-                    data.forEach(item => {
-                        const itemDiv = document.createElement('div');
-                        itemDiv.innerHTML = `<h3>${item.nombre}</h3><p>Edad: ${item.edad}</p>`;
-                        container.appendChild(itemDiv);
-                    });
+        $(document).ready(function(){
+            $('button').click(function(){
+                $ajax({
+                    url : 'datos.json',
+                    beforesend:function(){
+                        $('#respuesta').text('Cargando datos...');
+                    },
+                    succes:function(data){
+                        var cont = '';
+                        for(var item in data){
+                            cont += item + ":"+data[item]+"<br>";
+                        }
+                        $('#respuesta').html(cont);
+                    }
                 })
-                .catch(error => console.error('Error al cargar los datos:', error));
-        });
+            });
+        })
     </script>
 </body>
 </html>
