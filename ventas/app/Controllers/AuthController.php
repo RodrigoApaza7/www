@@ -13,6 +13,7 @@ class AuthController extends BaseController
 
     public function autenticar()
     {
+        die('ENTRE A AUTENTICAR');
         $usuarioInput = $this->request->getPost('usuario');
         $password = $this->request->getPost('password');
 
