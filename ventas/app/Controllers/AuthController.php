@@ -13,7 +13,7 @@ class AuthController extends BaseController
 
     public function autenticar()
     {
-        $email = $this->request->getPost('usuario');
+        $usuarioInput = $this->request->getPost('usuario');
         $password = $this->request->getPost('password');
 
         $usuarioModel = new UsuariosModel();
@@ -27,7 +27,6 @@ class AuthController extends BaseController
             return redirect()->to('login')->with('error', 'Contraseña incorrecta');
         }
 
-        // Guardar sesión
         session()->set([
             'usuario_id' => $usuario['id'],
             'usuario_nombre' => $usuario['nombre'],
