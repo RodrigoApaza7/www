@@ -18,7 +18,7 @@
             </div>
         <?php endif; ?>
 
-        <form action="<?= base_url('login/autenticar') ?>" method="post">
+        <form action="<?= site_url('login/autenticar') ?>" method="post">
             <div class="mb-3">
                 <label class="form-label">Usuario</label>
                 <input type="text" class="form-control" name="usuario" required>

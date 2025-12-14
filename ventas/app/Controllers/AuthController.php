@@ -34,7 +34,7 @@ class AuthController extends BaseController
             'logged_in' => true
         ]);
 
-        return redirect()->to(base_url('dashboard'));
+        return redirect()->to(site_url('dashboard'));
     }
 
     public function logout()
