@@ -37,7 +37,7 @@
                             <label for="password" class="form-label">Contraseña</label>
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                                <input type="password" class="form-control" id="password" name="password" value="<?= $usuario['password'] ?>" placeholder="Dejar en blanco para mantener la actual">
+                                <input type="password" name="password" class="form-control" placeholder="Dejar en blanco para mantener la actual">
                             </div>
                             <div class="form-text">Deja este campo vacío si no deseas cambiar la contraseña</div>
                         </div>
