@@ -14,24 +14,26 @@ class AuthController extends BaseController
     public function autenticar()
     {
         $usuarioInput = $this->request->getPost('usuario');
-        $password = $this->request->getPost('password');
+        $password     = $this->request->getPost('password');
 
         $usuarioModel = new UsuariosModel();
         $usuario = $usuarioModel->where('usuario', $usuarioInput)->first();
 
         if (!$usuario) {
-            return redirect()->to(site_url('login'));
+            return redirect()->to(site_url('login'))
+                ->with('error', 'Usuario no encontrado');
         }
 
         if (!password_verify($password, $usuario['password'])) {
-            return redirect()->to(site_url('login'));
+            return redirect()->to(site_url('login'))
+                ->with('error', 'Contraseña incorrecta');
         }
 
         session()->set([
-            'usuario_id' => $usuario['id'],
+            'usuario_id'     => $usuario['id'],
             'usuario_nombre' => $usuario['nombre'],
-            'usuario_rol' => $usuario['rol'],
-            'logged_in' => true
+            'usuario_rol'    => $usuario['rol'],
+            'logged_in'      => true
         ]);
 
         return redirect()->to(site_url('dashboard'));
