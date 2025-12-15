@@ -31,7 +31,7 @@
             </div>
 
             <button type="submit" class="btn btn-primary w-100">Ingresar</button>
-            <h1>No tienes cuenta?<a href="">clik aqui</a></h1>
+            <h1>No tienes cuenta?<a href="<?= site_url('usuarios/crear') ?>">Registrarse</a></h1>
         </form>
 
     </div>
