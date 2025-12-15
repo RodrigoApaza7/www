@@ -39,13 +39,13 @@ function guardarPersona(tipo) {
 
 // Muestra los datos de la tabla Persona
 function mostrarPersona() {
+    var tbody = document.getElementById("tbody");
     tbody.innerHTML = '';
 
     db.transaction(t => t.executeSql(
         'select * from person',
         [],
         function (t, results) {
-            var tbody = document.getElementById("tbody");
             for (var i = 0; i < results.rows.length; i++) {
                 var row = results.rows.item(i);
                 tbody.innerHTML +=
