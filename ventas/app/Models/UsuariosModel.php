@@ -11,10 +11,9 @@ class UsuariosModel extends Model
 
     protected $allowedFields = [
         'nombre',
-        'email',
+        'usuario',
         'password',
         'rol',
-        'creado_en'
     ];
 
     protected $returnType = 'array';
