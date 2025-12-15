@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Models\UsuariosModel;
 
-class UsuariosController extends BaseController
+class UsuarioController extends BaseController
 {
     public function index()
     {
