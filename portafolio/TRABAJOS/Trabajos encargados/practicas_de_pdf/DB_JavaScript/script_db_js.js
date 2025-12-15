@@ -1,36 +1,40 @@
-// Creando la base de datos cliente
-const db = window.openDatabase('data', '1.0', 'data', 1 * 1024 * 1024);
+// Abrir o crear una base de datos en IndexedDB
+const dbRequest = indexedDB.open("crudDB", 1);  // Base de datos llamada "crudDB"
 
-// Crea la tabla Persona
-db.transaction(t => t.executeSql(
-    'create table if not exists person (id INTEGER PRIMARY KEY, p_nombres TEXT, p_apellidos TEXT)',
-    [],
-    function () {
-        console.log("tabla creada");
-    },
-    function () {
-        console.log("error");
+// Crear la tabla o almacén de objetos si no existe
+dbRequest.onupgradeneeded = function(e) {
+    const db = e.target.result;
+    if (!db.objectStoreNames.contains("person")) {
+        db.createObjectStore("person", { keyPath: "id", autoIncrement: true });
     }
-));
+};
 
-mostrarPersona();
+// Abrir la base de datos y manejar los errores
+let db;
+dbRequest.onsuccess = function(e) {
+    db = e.target.result;
+    mostrarPersona();
+};
 
-// Guarda variables a la tabla Persona
+dbRequest.onerror = function(e) {
+    console.log("Error al abrir la base de datos", e);
+};
+
+// Guarda una persona (crear o editar)
 function guardarPersona(tipo) {
     var Idp = document.getElementById('idp').value;
     var Nombres = document.getElementById('nombres').value;
     var Apellidos = document.getElementById('apellidos').value;
-
-    if (tipo == 0) {
-        db.transaction(t => t.executeSql(
-            'insert into person(p_nombres, p_apellidos) values (?, ?)',
-            [Nombres, Apellidos]    
-        ));
-    } else {
-        db.transaction(t => t.executeSql(
-            'update person set p_nombres=?, p_apellidos=? WHERE id=?',
-            [Nombres, Apellidos, Idp]
-        ));
+    
+    const transaction = db.transaction(["person"], "readwrite");
+    const store = transaction.objectStore("person");
+    
+    if (tipo === 0) {  // Crear nuevo registro
+        const newPerson = { p_nombres: Nombres, p_apellidos: Apellidos };
+        store.add(newPerson);
+    } else {  // Editar un registro
+        const updatedPerson = { id: parseInt(Idp), p_nombres: Nombres, p_apellidos: Apellidos };
+        store.put(updatedPerson);
     }
 
     document.getElementById("formu").reset();
@@ -39,40 +43,40 @@ function guardarPersona(tipo) {
 
 // Muestra los datos de la tabla Persona
 function mostrarPersona() {
-    var tbody = document.getElementById("tbody");
+    const tbody = document.getElementById("tbody");
     tbody.innerHTML = '';
+    
+    const transaction = db.transaction(["person"], "readonly");
+    const store = transaction.objectStore("person");
+    
+    const request = store.getAll(); // Obtener todos los registros
 
-    db.transaction(t => t.executeSql(
-        'select * from person',
-        [],
-        function (t, results) {
-            for (var i = 0; i < results.rows.length; i++) {
-                var row = results.rows.item(i);
-                tbody.innerHTML +=
-                    "<tr>" +
-                    "<td>" + row.id + "</td>" +
-                    "<td>" + row.p_nombres + "</td>" +
-                    "<td>" + row.p_apellidos + "</td>" +
-                    "<td><button onclick=\"borrarPersona(" + row.id + ")\">Borrar</button></td>" +
-                    "</tr>";
-            }
-        }
-    ));
+    request.onsuccess = function(e) {
+        const results = e.target.result;
+        results.forEach(function(row) {
+            tbody.innerHTML += 
+                "<tr>" +
+                "<td>" + row.id + "</td>" +
+                "<td>" + row.p_nombres + "</td>" +
+                "<td>" + row.p_apellidos + "</td>" +
+                "<td><button onclick=\"borrarPersona(" + row.id + ")\">Borrar</button></td>" +
+                "</tr>";
+        });
+    };
 }
 
 // Borra todos los datos de la tabla Persona
 function borrarTodo() {
-    db.transaction(t => t.executeSql(
-        'delete from person'
-    ));
+    const transaction = db.transaction(["person"], "readwrite");
+    const store = transaction.objectStore("person");
+    store.clear();
     mostrarPersona();
 }
 
 // Borra una persona por id
 function borrarPersona(id) {
-    db.transaction(t => t.executeSql(
-        'delete from person where id=?',
-        [id]
-    ));
+    const transaction = db.transaction(["person"], "readwrite");
+    const store = transaction.objectStore("person");
+    store.delete(id);
     mostrarPersona();
 }
