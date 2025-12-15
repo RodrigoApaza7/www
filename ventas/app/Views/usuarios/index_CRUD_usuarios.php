@@ -1,6 +1,6 @@
 <h2>Listado de usuarios$usuarios</h2>
 
-<a href="<?= site_url('usuarios$usuarios/crear') ?>">Nueva Persona</a>
+<a href="<?= site_url('usuarios/crear') ?>">Nueva Persona</a>
 
 <table border="1" cellpadding="5">
     <tr>
@@ -19,7 +19,7 @@
         <td><?= $p['password'] ?></td>
         <td>
             <a href="<?= site_url('usuarios/editar/'.$p['id']) ?>">Editar</a>
-            |
+
             <a href="<?= site_url('usuarios/eliminar/'.$p['id']) ?>" onclick="return confirm('¿Eliminar?')">Eliminar</a>
         </td>
     </tr>
