@@ -18,3 +18,10 @@ $routes->post('personas/guardar', 'PersonasController::guardar');
 $routes->get('personas/editar/(:num)', 'PersonasController::editar/$1');
 $routes->post('personas/actualizar/(:num)', 'PersonasController::actualizar/$1');
 $routes->get('personas/eliminar/(:num)', 'PersonasController::eliminar/$1');
+
+$routes->get('usuarios', 'UsuarioController::index');
+$routes->get('usuarios/crear', 'UsuarioController::crear');
+$routes->post('usuarios/guardar', 'UsuarioController::guardar');
+$routes->get('usuarios/editar/(:num)', 'UsuarioController::editar/$1');
+$routes->post('usuarios/actualizar/(:num)', 'UsuarioController::actualizar/$1');
+$routes->get('usuarios/eliminar/(:num)', 'UsuarioController::eliminar/$1');
