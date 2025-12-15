@@ -12,8 +12,7 @@ $routes->post('login/autenticar', 'AuthController::autenticar');
 $routes->get('dashboard', 'DashboardController::index');
 $routes->get('logout', 'AuthController::logout');
 
-
-$routes->get('personas', 'PersonasController::index_CRUD_personas');
+$routes->get('personas', 'PersonasController::index');
 $routes->get('personas/crear', 'PersonasController::crear');
 $routes->post('personas/guardar', 'PersonasController::guardar');
 $routes->get('personas/editar/(:num)', 'PersonasController::editar/$1');
