@@ -25,3 +25,5 @@ $routes->post('usuarios/guardar', 'UsuarioController::guardar');
 $routes->get('usuarios/editar/(:num)', 'UsuarioController::editar/$1');
 $routes->post('usuarios/actualizar/(:num)', 'UsuarioController::actualizar/$1');
 $routes->get('usuarios/eliminar/(:num)', 'UsuarioController::eliminar/$1');
+
+$routes->get('reportes/usuarios', 'Reportes\UsuariosReportes::index');
