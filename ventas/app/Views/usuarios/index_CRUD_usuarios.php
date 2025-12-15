@@ -1,4 +1,4 @@
-<h2>Listado de usuarios$usuarios</h2>
+<h2>Listado de usuarios</h2>
 
 <a href="<?= site_url('usuarios/crear') ?>">Nueva Persona</a>
 
