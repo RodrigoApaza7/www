@@ -18,7 +18,7 @@ class UsuariosReportes extends BaseController
             return redirect()->to(site_url('dashboard'));
         }
 
-        return view('reportes/usuarios');
+        return view('reportes/usuarios_reportes');
     }
 
     public function pdf()
