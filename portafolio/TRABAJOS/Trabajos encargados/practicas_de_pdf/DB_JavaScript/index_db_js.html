@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD</title>
+</head>
+<body>
+
+<h1>CRUD</h1>
+
+<form id="formu">
+    <input type="number" id="idp" placeholder="Id" /><br>
+    <input type="text" id="nombres" placeholder="Nombres" />
+    <input type="text" id="apellidos" placeholder="Apellidos" />
+</form>
+
+<button onclick="guardarPersona(0)">Crear</button>
+<button onclick="guardarPersona(1)">Editar</button>
+<button onclick="borrarTodo()">Borrar Todo</button>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>N°</th>
+            <th>Nombres</th>
+            <th>Apellidos</th>
+            <th>Borrar</th>
+        </tr>
+    </thead>
+    <tbody id="tbody">
+    </tbody>
+</table>
+
+<script src="script.js"></script>
+</body>
+</html>
