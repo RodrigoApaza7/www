@@ -18,9 +18,9 @@
         <td><?= $p['paterno'] ?></td>
         <td><?= $p['materno'] ?></td>
         <td>
-            <a href="<?= site_url('usuarios/editar/'.$p['id']) ?>">Editar</a>
+            <a href="<?= site_url('personas/editar/'.$p['id']) ?>">Editar</a>
             |
-            <a href="<?= site_url('usuarios/eliminar/'.$p['id']) ?>" onclick="return confirm('¿Eliminar?')">Eliminar</a>
+            <a href="<?= site_url('personas/eliminar/'.$p['id']) ?>" onclick="return confirm('¿Eliminar?')">Eliminar</a>
         </td>
     </tr>
     <?php endforeach; ?>
