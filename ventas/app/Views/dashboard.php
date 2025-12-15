@@ -53,6 +53,7 @@
             <a href="#">Productos</a>
             <a href="#">Ventas</a>
             <a href="#">Clientes</a>
+            <a href="<?= site_url('usuarios') ?>" class="btn btn-secondary">Gestionar Usuarios</a>
             <a href="#">Reportes</a>
             <a href="#">Configuración</a>
         </div>

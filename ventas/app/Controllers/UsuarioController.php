@@ -12,6 +12,10 @@ class UsuarioController extends BaseController
             return redirect()->to(site_url('login'));
         }
 
+        if (session()->get('usuario_rol') !== 'admin') {
+            return redirect()->to(site_url('dashboard'));
+        }
+
         $model = new UsuariosModel();
         $data['usuarios'] = $model->findAll();
 
@@ -20,6 +24,14 @@ class UsuarioController extends BaseController
 
     public function crear()
     {
+        if (!session()->get('logged_in')) {
+            return redirect()->to(site_url('login'));
+        }
+
+        if (session()->get('usuario_rol') !== 'admin') {
+            return redirect()->to(site_url('dashboard'));
+        }
+
         return view('usuarios/crear');
     }
 
@@ -37,7 +49,7 @@ class UsuarioController extends BaseController
             'rol' => 'vendedor'
         ]);
 
-        return redirect()->to(site_url('usuarios'));
+        return redirect()->to(site_url('dashboard'));
     }
 
     public function editar($id)
