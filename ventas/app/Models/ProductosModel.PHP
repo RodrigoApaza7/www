@@ -15,5 +15,5 @@ class ProductosModel extends Model
         'stock'
     ];
 
-    protected $returnType = 'array';
+    protected $returnType = 'array';;
 }
