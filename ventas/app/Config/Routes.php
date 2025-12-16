@@ -27,4 +27,5 @@ $routes->post('usuarios/actualizar/(:num)', 'UsuarioController::actualizar/$1');
 $routes->get('usuarios/eliminar/(:num)', 'UsuarioController::eliminar/$1');
 
 $routes->get('reportes/usuarios', 'Reportes\UsuariosReportes::index');
+$routes->get('reportes/usuarios/filtrar', 'Reportes\UsuariosReportes::filtrar');
 $routes->get('reportes/usuarios/pdf', 'Reportes\UsuariosReportes::pdf');
