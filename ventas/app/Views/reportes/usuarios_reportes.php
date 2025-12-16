@@ -63,28 +63,38 @@
 
 <script>
     document.getElementById('buscar').addEventListener('click', () => {
-        // Mostrar un mensaje de carga mientras se ejecuta el fetch
+
         document.getElementById('resultado').innerHTML = `
             <tr>
                 <td colspan="4" class="text-center p-3">
-                    <div class="spinner-border text-primary spinner-border-sm me-2" role="status">
-                        <span class="visually-hidden">Cargando...</span>
-                    </div>
+                    <div class="spinner-border text-primary spinner-border-sm me-2"></div>
                     Cargando datos...
                 </td>
             </tr>
         `;
-        
+
         const rol = document.getElementById('rol').value;
 
-        // TU LÓGICA FETCH/AJAX ORIGINAL (Sin modificar las URLs ni el proceso)
+        // 🔽🔽🔽 AQUÍ VA LO QUE PREGUNTASTE 🔽🔽🔽
+        const pdfLink = document.getElementById('pdf');
+
+        if (rol === 'todos') {
+            pdfLink.href = `<?= site_url('reportes/usuarios/pdf') ?>`;
+        } else {
+            pdfLink.href = `<?= site_url('reportes/usuarios/pdf') ?>?rol=${rol}`;
+        }
+        // 🔼🔼🔼 HASTA AQUÍ 🔼🔼🔼
+
         fetch(`<?= site_url('reportes/usuarios/filtrar') ?>?rol=${rol}`)
             .then(r => r.json())
             .then(data => {
                 let html = '';
                 data.forEach(u => {
-                    // Se usa el badge de Bootstrap para mejorar la apariencia del rol
-                    const badgeClass = u.rol === 'admin' ? 'bg-success' : u.rol === 'vendedor' ? 'bg-info text-dark' : 'bg-secondary';
+                    const badgeClass = u.rol === 'admin'
+                        ? 'bg-success'
+                        : u.rol === 'vendedor'
+                        ? 'bg-info text-dark'
+                        : 'bg-secondary';
 
                     html += `
                         <tr>
@@ -96,16 +106,6 @@
                     `;
                 });
                 document.getElementById('resultado').innerHTML = html;
-            })
-            .catch(error => {
-                console.error('Error al cargar los datos:', error);
-                document.getElementById('resultado').innerHTML = `
-                    <tr>
-                        <td colspan="4" class="text-center text-danger p-3">
-                            <i class="bi bi-exclamation-triangle-fill me-2"></i> Error al cargar los datos.
-                        </td>
-                    </tr>
-                `;
             });
     });
 </script>
