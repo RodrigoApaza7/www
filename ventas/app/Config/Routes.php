@@ -29,3 +29,11 @@ $routes->get('usuarios/eliminar/(:num)', 'UsuarioController::eliminar/$1');
 $routes->get('reportes/usuarios', 'Reportes\UsuariosReportes::index');
 $routes->get('reportes/usuarios/filtrar', 'Reportes\UsuariosReportes::filtrar');
 $routes->get('reportes/usuarios/pdf', 'Reportes\UsuariosReportes::pdf');
+
+$routes->get('productos', 'ProductosController::index');
+$routes->get('productos/crear', 'ProductosController::crear');
+$routes->post('productos/guardar', 'ProductosController::guardar');
+$routes->get('productos/editar/(:num)', 'ProductosController::editar/$1');
+$routes->post('productos/actualizar/(:num)', 'ProductosController::actualizar/$1');
+$routes->get('productos/eliminar/(:num)', 'ProductosController::eliminar/$1');
+
