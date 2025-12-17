@@ -11,16 +11,6 @@ class UsuariosReportes extends BaseController
     public function index()
     {
         dd(session()->get('usuario_rol'));
-
-        if (!session()->get('logged_in')) {
-            return redirect()->to(site_url('login'));
-        }
-
-        if (session()->get('usuario_rol') !== 'admin') {
-            return redirect()->to(site_url('dashboard'));
-        }
-
-        return view('reportes/usuarios_reportes');
     }
 
     public function filtrar()
