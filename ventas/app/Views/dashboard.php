@@ -54,8 +54,8 @@
             <a href="#">Ventas</a>
             <a href="#">Clientes</a>
             <a href="<?= site_url('usuarios') ?>">Gestionar Usuarios</a>
-            <a href="<?= site_url('reportes/usuarios') ?>">Reportes</a>
-            <a href="#">Configuración</a>
+            <a href="<?= site_url('reportes') ?>">Reportes</a>
+            <a href="<?= site_url('categorias') ?>">Configuración</a>
         </div>
 
         <!-- MAIN CONTENT -->

@@ -16,14 +16,6 @@ class UsuarioController extends BaseController
 
     public function crear()
     {
-        if (!session()->get('logged_in')) {
-            return redirect()->to(site_url('login'));
-        }
-
-        if (session()->get('usuario_rol') !== 'admin') {
-            return redirect()->to(site_url('dashboard'));
-        }
-
         return view('usuarios/crear');
     }
 
