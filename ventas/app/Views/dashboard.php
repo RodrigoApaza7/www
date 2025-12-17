@@ -62,7 +62,7 @@
         <div class="col-9 col-md-10 p-0">
             <div class="topbar d-flex justify-content-between align-items-center">
                 <h5 class="m-0">Inicio</h5>
-                <div>Usuario: Admin</div>
+                <div>Usuario: <?php $rolUsuario = session()->get('usuario_rol'); ?></div>
             </div>
 
             <div class="container mt-4">
