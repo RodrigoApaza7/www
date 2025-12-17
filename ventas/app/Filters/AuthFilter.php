@@ -10,10 +10,12 @@ class AuthFilter implements FilterInterface
 {
     public function before(RequestInterface $request, $arguments = null)
     {
+        //Verificar login
         if (!session()->get('logged_in')) {
             return redirect()->to('/login');
         }
 
+        //Verificar roles (si se pasan)
         if (!empty($arguments)) {
             $rolUsuario = session()->get('usuario_rol');
 
@@ -25,14 +27,8 @@ class AuthFilter implements FilterInterface
 
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
     {
+        // No se usa
     }
-
-    public $aliases = [
-        'auth' => \App\Filters\AuthFilter::class,
-    ];
-
-    public $filters = [
-        'auth' => ['before' => ['dashboard*']],
-    ];
+    public $filters = [];
 
 }
