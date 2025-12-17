@@ -11,9 +11,6 @@ class ProductosReportes extends BaseController
     //Vista principal del reporte
     public function index()
     {
-        dd(session()->get());
-
-
         $categoriasModel = new CategoriasModel();
 
         $data['categorias'] = $categoriasModel
