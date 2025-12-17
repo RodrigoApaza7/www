@@ -6,10 +6,10 @@
     <tr>
         <th>ID</th>
         <th>Nombre</th>
+        <th>Categoría</th>
         <th>Precio</th>
         <th>Stock</th>
         <th>Acciones</th>
-        <th>Categoría</th>
     </tr>
 
     <?php foreach ($productos as $p): ?>
