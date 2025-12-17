@@ -3,20 +3,30 @@
 namespace App\Controllers;
 
 use App\Models\ProductosModel;
+use App\Models\CategoriasModel;
 
 class ProductosController extends BaseController
 {
     public function index()
     {
         $model = new ProductosModel();
-        $data['productos'] = $model->findAll();
+        $data['productos'] = $model
+            ->select('productos.*, categorias.nombre AS categoria')
+            ->join('categorias', 'categorias.id = productos.categoria_id', 'left')
+            ->findAll();
 
         return view('productos/index_productos', $data);
     }
 
     public function crear()
     {
-        return view('productos/crear');
+        $categoriasModel = new CategoriasModel();
+
+        $data['categorias'] = $categoriasModel
+            ->where('estado', 1)
+            ->findAll();
+
+        return view('productos/crear', $data);
     }
 
     public function guardar()
@@ -27,6 +37,7 @@ class ProductosController extends BaseController
             'nombre' => $this->request->getPost('nombre'),
             'precio' => $this->request->getPost('precio'),
             'stock'  => $this->request->getPost('stock'),
+            'categoria_id' => $this->request->getPost('categoria_id')
         ]);
 
         return redirect()->to(site_url('productos'));
@@ -34,8 +45,13 @@ class ProductosController extends BaseController
 
     public function editar($id)
     {
-        $model = new ProductosModel();
-        $data['producto'] = $model->find($id);
+        $productosModel = new ProductosModel();
+        $categoriasModel = new CategoriasModel();
+
+        $data['producto'] = $productosModel->find($id);
+        $data['categorias'] = $categoriasModel
+            ->where('estado', 1)
+            ->findAll();
 
         return view('productos/editar', $data);
     }
@@ -48,6 +64,7 @@ class ProductosController extends BaseController
             'nombre' => $this->request->getPost('nombre'),
             'precio' => $this->request->getPost('precio'),
             'stock'  => $this->request->getPost('stock'),
+            'categoria_id' => $this->request->getPost('categoria_id')
         ]);
 
         return redirect()->to(site_url('productos'));

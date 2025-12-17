@@ -12,7 +12,8 @@ class ProductosModel extends Model
     protected $allowedFields = [
         'nombre',
         'precio',
-        'stock'
+        'stock',
+        'categoria_id'
     ];
 
     protected $returnType = 'array';

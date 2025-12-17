@@ -5,5 +5,14 @@
     <input type="number" step="0.01" name="precio" placeholder="Precio" required><br>
     <input type="number" name="stock" placeholder="Stock" required><br>
 
+    <select name="categoria_id" required>
+        <option value="">Seleccione categoría</option>
+        <?php foreach ($categorias as $c): ?>
+            <option value="<?= $c['id'] ?>">
+                <?= esc($c['nombre']) ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+
     <button type="submit">Guardar</button>
 </form>

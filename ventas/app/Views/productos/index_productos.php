@@ -9,12 +9,14 @@
         <th>Precio</th>
         <th>Stock</th>
         <th>Acciones</th>
+        <th>Categoría</th>
     </tr>
 
     <?php foreach ($productos as $p): ?>
     <tr>
         <td><?= $p['id'] ?></td>
         <td><?= $p['nombre'] ?></td>
+        <td><?= esc($p['categoria']) ?></td>
         <td>S/ <?= $p['precio'] ?></td>
         <td><?= $p['stock'] ?></td>
         <td>
