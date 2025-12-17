@@ -10,7 +10,9 @@ class UsuariosReportes extends BaseController
 
     public function index()
     {
-        dd(session()->get('usuario_rol'));
+        echo "ENTRÉ AL CONTROLLER";
+        exit;
+
 
         return view('reportes/usuarios_reportes');
     }
@@ -40,13 +42,6 @@ class UsuariosReportes extends BaseController
 
     public function pdf()
     {
-        if (!session()->get('logged_in')) {
-            return redirect()->to(site_url('login'));
-        }
-
-        if (session()->get('usuario_rol') !== 'admin') {
-            return redirect()->to(site_url('dashboard'));
-        }
 
         $rol = $this->request->getGet('rol');
 
