@@ -38,8 +38,8 @@
                             <div class="input-group">
                                 <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
                                 <select name="rol" id="rol" class="form-select" required>
-                                    <option value="admin" <?= $usuario['rol'] === 'admin' ? 'selected' : '' ?>>Administrador</option>
                                     <option value="vendedor" <?= $usuario['rol'] === 'vendedor' ? 'selected' : '' ?>>Vendedor</option>
+                                    <option value="admin" <?= $usuario['rol'] === 'admin' ? 'selected' : '' ?>>Administrador</option>
                                 </select>
                             </div>
                         </div>
