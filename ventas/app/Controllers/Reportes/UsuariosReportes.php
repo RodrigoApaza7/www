@@ -10,6 +10,8 @@ class UsuariosReportes extends BaseController
 
     public function index()
     {
+        dd(session()->get('usuario_rol'));
+
         if (!session()->get('logged_in')) {
             return redirect()->to(site_url('login'));
         }
