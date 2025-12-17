@@ -54,13 +54,13 @@ $routes->group('usuarios', ['filter' => 'auth:admin'], function ($routes) {
 });
 
 $routes->group('reportes', ['filter' => 'auth:admin,vendedor'], function ($routes) {
+    //reportes usuarios
     $routes->get('usuarios', 'Reportes\UsuariosReportes::index');
     $routes->get('usuarios/filtrar', 'Reportes\UsuariosReportes::filtrar');
     $routes->get('usuarios/pdf', 'Reportes\UsuariosReportes::pdf');
-});
 
-$routes->group('reportes', ['filter' => 'auth:admin,vendedor'], function ($routes) {
+    //reportes productos
     $routes->get('productos', 'Reportes\ProductosReportes::index');
     $routes->get('productos/filtrar', 'Reportes\ProductosReportes::filtrar');
     $routes->get('productos/pdf', 'Reportes\ProductosReportes::pdf');
-}); 
+});
