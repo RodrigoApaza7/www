@@ -11,15 +11,17 @@ class AuthFilter implements FilterInterface
 {
     public function before(RequestInterface $request, $arguments = null)
     {
-        $session = Services::session();
-
-        if (!$session->get('logged_in')) {
-            return redirect()->to('/login');
+        //Verificar login
+        if (!session()->get('logged_in')) {
+            return redirect()->to(site_url('login'));
         }
 
-        if (!empty($arguments)) {
-            $rolUsuario = $session->get('usuario_rol');
+        //Si la ruta define roles
+        if (is_array($arguments) && count($arguments) > 0) {
 
+            $rolUsuario = session()->get('usuario_rol');
+
+            // Si no hay rol o no está permitido
             if (!$rolUsuario || !in_array($rolUsuario, $arguments)) {
                 return redirect()->to(site_url('dashboard'));
             }

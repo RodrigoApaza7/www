@@ -64,3 +64,11 @@ $routes->group('reportes', ['filter' => 'auth:admin,vendedor'], function ($route
     $routes->get('productos/filtrar', 'Reportes\ProductosReportes::filtrar');
     $routes->get('productos/pdf', 'Reportes\ProductosReportes::pdf');
 });
+
+$routes->group('categorias', ['filter' => 'auth:admin'], function ($routes) {
+    $routes->get('/', 'CategoriasController::index');
+    $routes->get('crear', 'CategoriasController::crear');
+    $routes->post('guardar', 'CategoriasController::guardar');
+    $routes->get('editar/(:num)', 'CategoriasController::editar/$1');
+    $routes->post('actualizar/(:num)', 'CategoriasController::actualizar/$1');
+});
