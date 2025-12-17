@@ -6,7 +6,7 @@
     <input type="number" name="stock" placeholder="Stock" required><br>
 
     <select name="categoria_id" required>
-        <option value="">Seleccione categoría</option>
+        <option value="" disabled selected>Seleccione categoría</option>
         <?php foreach ($categorias as $c): ?>
             <option value="<?= $c['id'] ?>">
                 <?= esc($c['nombre']) ?>
