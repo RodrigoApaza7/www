@@ -8,6 +8,22 @@ use App\Models\ProductosModel;
 
 class VentasController extends BaseController
 {
+    public function index()
+    {
+        if (!session()->get('logged_in')) {
+            return redirect()->to(site_url('login'));
+        }
+
+        if (session()->get('usuario_rol') !== 'admin') {
+            return redirect()->to(site_url('dashboard'));
+        }
+
+        $model = new UsuariosModel();
+        $data['usuarios'] = $model->findAll();
+
+        return view('usuarios/index_CRUD_usuarios', $data);
+    }
+
     public function guardar()
     {
         $db = \Config\Database::connect();

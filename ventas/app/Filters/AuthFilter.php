@@ -13,6 +13,12 @@ class AuthFilter implements FilterInterface
         if (!session()->get('logged_in')) {
             return redirect()->to('/login');
         }
+
+        if ($arguments && isset($arguments[0])) {
+            if (session()->get('usuario_rol') !== $arguments[0]) {
+                return redirect()->to(site_url('dashboard'));
+            }
+        }
     }
 
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
