@@ -58,3 +58,9 @@ $routes->group('reportes', ['filter' => 'auth:admin,vendedor'], function ($route
     $routes->get('usuarios/filtrar', 'Reportes\UsuariosReportes::filtrar');
     $routes->get('usuarios/pdf', 'Reportes\UsuariosReportes::pdf');
 });
+
+$routes->group('reportes', ['filter' => 'auth:admin,vendedor'], function ($routes) {
+    $routes->get('productos', 'Reportes\ProductosReportes::index');
+    $routes->get('productos/filtrar', 'Reportes\ProductosReportes::filtrar');
+    $routes->get('productos/pdf', 'Reportes\ProductosReportes::pdf');
+}); 

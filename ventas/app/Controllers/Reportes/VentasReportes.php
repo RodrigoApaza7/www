@@ -15,14 +15,6 @@ class UsuariosReportes extends BaseController
 
     public function pdf()
     {
-        if (!session()->get('logged_in')) {
-            return redirect()->to(site_url('login'));
-        }
-
-        if (session()->get('usuario_rol') !== 'admin') {
-            return redirect()->to(site_url('dashboard'));
-        }
-
         $model = new \App\Models\UsuariosModel();
         $usuarios = $model->findAll();
 
