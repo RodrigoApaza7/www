@@ -10,23 +10,11 @@ class UsuariosReportes extends BaseController
 
     public function index()
     {
-        echo "ENTRÉ AL CONTROLLER";
-        exit;
-
-
         return view('reportes/usuarios_reportes');
     }
 
     public function filtrar()
     {
-        if (!session()->get('logged_in')) {
-            return $this->response->setJSON([]);
-        }
-
-        if (session()->get('usuario_rol') !== 'admin') {
-            return $this->response->setJSON([]);
-        }
-
         $rol = $this->request->getGet('rol');
 
         $model = new UsuariosModel();
