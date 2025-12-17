@@ -14,10 +14,10 @@ class AuthFilter implements FilterInterface
             return redirect()->to('/login');
         }
 
-        if ($arguments) {
+        if (!empty($arguments)) {
             $rolUsuario = session()->get('usuario_rol');
 
-            if (!in_array($rolUsuario, $arguments)) {
+            if (!$rolUsuario || !in_array($rolUsuario, $arguments)) {
                 return redirect()->to(site_url('dashboard'));
             }
         }
