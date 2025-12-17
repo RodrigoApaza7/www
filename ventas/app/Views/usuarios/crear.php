@@ -32,6 +32,16 @@
                                 <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Nombre de usuario">
                             </div>
                         </div>
+                        
+                        <div class="mb-3">
+                            <label for="rol" class="form-label">Rol</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-person-badge"></i></span>
+                                <select name="rol" id="rol" class="form-select" required>
+                                    <option value="vendedor">Vendedor</option>
+                                    <option value="admin">Administrador</option>
+                                </select>
+                            </div>
 
                         <div class="mb-4">
                             <label for="password" class="form-label">Contraseña</label>
