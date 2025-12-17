@@ -11,21 +11,22 @@ class AuthFilter implements FilterInterface
 {
     public function before(RequestInterface $request, $arguments = null)
     {
-        //Verificar login
+        //Login obligatorio
         if (!session()->get('logged_in')) {
             return redirect()->to(site_url('login'));
         }
 
-        //Si la ruta define roles
-        if (is_array($arguments) && count($arguments) > 0) {
+        //SOLO validar rol si EXPLICITAMENTE se pasaron roles
+        if ($arguments !== null && count($arguments) > 0) {
 
             $rolUsuario = session()->get('usuario_rol');
 
-            // Si no hay rol o no está permitido
             if (!$rolUsuario || !in_array($rolUsuario, $arguments)) {
                 return redirect()->to(site_url('dashboard'));
             }
         }
+
+        //Si no hay roles, solo login basta
     }
 
     public function after(RequestInterface $request, ResponseInterface $response, $arguments = null)
