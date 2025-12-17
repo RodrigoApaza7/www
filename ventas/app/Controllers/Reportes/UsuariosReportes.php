@@ -11,6 +11,8 @@ class UsuariosReportes extends BaseController
     public function index()
     {
         dd(session()->get('usuario_rol'));
+
+        return view('reportes/usuarios_reportes');
     }
 
     public function filtrar()

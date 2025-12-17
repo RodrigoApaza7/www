@@ -8,10 +8,6 @@ class ProductosController extends BaseController
 {
     public function index()
     {
-        if (!session()->get('logged_in')) {
-            return redirect()->to(site_url('login'));
-        }
-
         $model = new ProductosModel();
         $data['productos'] = $model->findAll();
 

@@ -8,14 +8,6 @@ class UsuarioController extends BaseController
 {
     public function index()
     {
-        if (!session()->get('logged_in')) {
-            return redirect()->to(site_url('login'));
-        }
-
-        if (session()->get('usuario_rol') !== 'admin') {
-            return redirect()->to(site_url('dashboard'));
-        }
-
         $model = new UsuariosModel();
         $data['usuarios'] = $model->findAll();
 
