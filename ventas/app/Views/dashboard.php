@@ -50,7 +50,7 @@
         <div class="col-3 col-md-2 sidebar">
             <h3>Sistema Ventas</h3>
             <a href="#">Dashboard</a>
-            <a href="#">Productos</a>
+            <a href="<?= site_url('productos') ?>">Productos</a>
             <a href="#">Ventas</a>
             <a href="#">Clientes</a>
             <a href="<?= site_url('usuarios') ?>">Gestionar Usuarios</a>
