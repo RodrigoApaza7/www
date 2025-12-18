@@ -208,6 +208,45 @@ class VentasController extends BaseController
         ]);
     }
 
+    public function historialFiltrar()
+    {
+        $ventasModel = new \App\Models\VentasModel();
+
+        // filtros por GET
+        $desde     = $this->request->getGet('desde');
+        $hasta     = $this->request->getGet('hasta');
+        $clienteId = $this->request->getGet('cliente_id');
+
+        $builder = $ventasModel
+            ->select('ventas.*, clientes.nombre as cliente')
+            ->join('clientes', 'clientes.id = ventas.id_cliente', 'left')
+            ->where('ventas.total >', 0);
+
+        if ($desde) {
+            $builder->where('DATE(ventas.fecha) >=', $desde);
+        }
+
+        if ($hasta) {
+            $builder->where('DATE(ventas.fecha) <=', $hasta);
+        }
+
+        if ($clienteId) {
+            $builder->where('ventas.id_cliente', $clienteId);
+        }
+
+        $ventas = $builder
+            ->orderBy('ventas.id', 'DESC')
+            ->findAll();
+
+        $clientes = (new \App\Models\ClientesModel())->findAll();
+
+        return view('historial/historial', [
+            'ventas'   => $ventas,
+            'clientes' => $clientes,
+            'filtros'  => compact('desde', 'hasta', 'clienteId')
+        ]);
+    }
+
     public function ver($id)
     {
         $ventasModel  = new \App\Models\VentasModel();

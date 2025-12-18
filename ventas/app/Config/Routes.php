@@ -101,5 +101,8 @@ $routes->group('', ['filter' => 'auth:admin,vendedor'], function ($routes) {
 
     $routes->get('historial', 'VentasController::historial');
     $routes->get('historial/(:num)', 'VentasController::ver/$1');
+    $routes->get('historial', 'VentasController::historial');
+    $routes->get('historial/filtrar', 'VentasController::historialFiltrar');
+
 
 });
