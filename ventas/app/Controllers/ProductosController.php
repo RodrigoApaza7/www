@@ -32,6 +32,8 @@ class ProductosController extends BaseController
 
     public function guardar()
     {
+        $db = \Config\Database::connect(); // 👈 ESTA LÍNEA FALTABA
+
         $db->table('productos')->insert([
             'nombre'       => $this->request->getPost('nombre'),
             'precio'       => $this->request->getPost('precio'),
