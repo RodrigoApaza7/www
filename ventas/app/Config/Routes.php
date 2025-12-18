@@ -14,6 +14,10 @@ $routes->get('login', 'AuthController::index');
 $routes->post('login/autenticar', 'AuthController::autenticar');
 $routes->get('logout', 'AuthController::logout');
 
+// Registro público
+$routes->get('registro', 'AuthController::registro');
+$routes->post('registro/guardar', 'AuthController::guardarRegistro');
+
 
 // =======================
 // RUTAS PROTEGIDAS (LOGIN)

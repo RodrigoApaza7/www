@@ -33,7 +33,7 @@
             <button type="submit" class="btn btn-primary w-100">Ingresar</button>
             <p class="text-center mt-3">
                 ¿No tienes cuenta?
-                <a href="<?= site_url('usuarios/crear') ?>">Registrarse</a>
+                <a href="<?= site_url('registro') ?>">Registrarse</a>
             </p>
         </form>
 
