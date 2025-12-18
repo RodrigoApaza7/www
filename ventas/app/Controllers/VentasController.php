@@ -77,13 +77,24 @@ class VentasController extends BaseController
     {
         $clientesModel = new ClientesModel();
 
+        $dni = $this->request->getPost('dni');
+
+        //Evitar duplicados
+        $existe = $clientesModel->where('dni', $dni)->first();
+
+        if ($existe) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'El cliente ya existe'
+            ]);
+        }
+
         $idCliente = $clientesModel->insert([
             'nombre'    => $this->request->getPost('nombre'),
-            'dni'       => $this->request->getPost('dni'),
+            'dni'       => $dni,
             'direccion' => $this->request->getPost('direccion')
         ]);
 
-        // asignar cliente a la venta
         $idVenta = session()->get('venta_id');
 
         (new VentasModel())->update($idVenta, [
