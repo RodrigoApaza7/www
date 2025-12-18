@@ -12,8 +12,6 @@ class VentasController extends BaseController
     public function index()
     {
         $ventasModel   = new VentasModel();
-        $clientesModel = new ClientesModel();
-        $productosModel = new ProductosModel();
         $detalleModel  = new DetalleVentaModel();
 
         // 1. Ver si hay una venta activa en sesión
@@ -41,7 +39,7 @@ class VentasController extends BaseController
         // 4. Total
         $total = array_sum(array_column($detalle, 'subtotal'));
 
-        return view('ventas/index', [
+        return view('ventas/index_ventas', [
             'venta_id' => $idVenta,
             'detalle'  => $detalle,
             'total'    => $total
