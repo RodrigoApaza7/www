@@ -106,4 +106,54 @@ class VentasController extends BaseController
         ]);
     }
 
+    public function agregarProducto()
+    {
+        $productosModel = new \App\Models\ProductosModel();
+        $detalleModel   = new \App\Models\DetalleVentaModel();
+
+        $idProducto = $this->request->getPost('id_producto');
+        $cantidad   = (int) $this->request->getPost('cantidad');
+        $idVenta    = session()->get('venta_id');
+
+        $producto = $productosModel->find($idProducto);
+
+        if (!$producto) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Producto no existe'
+            ]);
+        }
+
+        if ($producto['stock'] < $cantidad) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Stock insuficiente'
+            ]);
+        }
+
+        $subtotal = $cantidad * $producto['precio'];
+
+        // insertar detalle
+        $detalleModel->insert([
+            'id_venta'       => $idVenta,
+            'id_producto'    => $idProducto,
+            'cantidad'       => $cantidad,
+            'precio_unitario'=> $producto['precio'],
+            'subtotal'       => $subtotal
+        ]);
+
+        // descontar stock
+        $productosModel->update($idProducto, [
+            'stock' => $producto['stock'] - $cantidad
+        ]);
+
+        return $this->response->setJSON([
+            'success' => true,
+            'producto' => $producto['nombre'],
+            'cantidad' => $cantidad,
+            'precio'   => $producto['precio'],
+            'subtotal' => $subtotal
+        ]);
+    }
+
 }
