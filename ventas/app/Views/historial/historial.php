@@ -1,5 +1,37 @@
 <h2>📊 Historial de Ventas</h2>
 
+<!-- =========================
+     FILTROS (GET)
+========================= -->
+<form method="get" action="<?= site_url('historial/filtrar') ?>">
+    <label>Desde:</label>
+    <input type="date" name="desde"
+           value="<?= esc($filtros['desde'] ?? '') ?>">
+
+    <label>Hasta:</label>
+    <input type="date" name="hasta"
+           value="<?= esc($filtros['hasta'] ?? '') ?>">
+
+    <label>Cliente:</label>
+    <select name="cliente_id">
+        <option value="">Todos</option>
+        <?php foreach ($clientes as $c): ?>
+            <option value="<?= $c['id'] ?>"
+                <?= (!empty($filtros['clienteId']) && $filtros['clienteId'] == $c['id']) ? 'selected' : '' ?>>
+                <?= esc($c['nombre']) ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+
+    <button type="submit">Filtrar</button>
+    <a href="<?= site_url('historial') ?>">Limpiar</a>
+</form>
+
+<hr>
+
+<!-- =========================
+     TABLA DE RESULTADOS
+========================= -->
 <table border="1" cellpadding="5" cellspacing="0" width="100%">
     <thead>
         <tr style="background-color:#f2f2f2;">
@@ -15,7 +47,7 @@
         <?php if (empty($ventas)): ?>
             <tr>
                 <td colspan="5" style="text-align:center;">
-                    No hay ventas registradas
+                    Sin resultados
                 </td>
             </tr>
         <?php endif; ?>
@@ -27,17 +59,10 @@
                 <td><?= esc($v['cliente'] ?? '—') ?></td>
                 <td>S/ <?= number_format($v['total'], 2) ?></td>
                 <td>
-                    <!-- VER DETALLE -->
-                    <a href="<?= site_url('historial/' . $v['id']) ?>">
-                        Ver
-                    </a>
-
+                    <a href="<?= site_url('historial/' . $v['id']) ?>">Ver</a>
                     &nbsp;|&nbsp;
-
-                    <!-- PDF DE LA VENTA -->
-                    <a href="<?= site_url('reportes/ventas/pdf/' . $v['id']) ?>" target="_blank">
-                        PDF
-                    </a>
+                    <a href="<?= site_url('reportes/ventas/pdf/' . $v['id']) ?>"
+                       target="_blank">PDF</a>
                 </td>
             </tr>
         <?php endforeach; ?>
