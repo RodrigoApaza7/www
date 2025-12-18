@@ -13,7 +13,7 @@ $routes->get('/', 'AuthController::index');
 $routes->get('login', 'AuthController::index');
 $routes->post('login/autenticar', 'AuthController::autenticar');
 $routes->get('logout', 'AuthController::logout');
-    $routes->get('personas/crear', 'PersonasController::crear');
+    $routes->get('dashboard/personas/crear', 'PersonasController::crear');
 
 
 // =======================
