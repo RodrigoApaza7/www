@@ -76,3 +76,21 @@ $routes->group('categorias', ['filter' => 'auth:admin'], function ($routes) {
     $routes->get('editar/(:num)', 'CategoriasController::editar/$1');
     $routes->post('actualizar/(:num)', 'CategoriasController::actualizar/$1');
 });
+
+$routes->group('', ['filter' => 'auth:admin,vendedor'], function ($routes) {
+    // =======================
+    // Ventas
+    // =======================
+    $routes->get('ventas', 'VentasController::index');
+    $routes->get('ventas/crear', 'VentasController::crear');
+    $routes->post('ventas/guardar', 'VentasController::guardar');
+    $routes->get('ventas/detalle/(:num)', 'VentasController::detalle/$1');
+
+    // Clientes
+    $routes->get('clientes', 'ClientesController::index');
+    $routes->get('clientes/crear', 'ClientesController::crear');
+    $routes->post('clientes/guardar', 'ClientesController::guardar');
+    $routes->get('clientes/editar/(:num)', 'ClientesController::editar/$1');
+    $routes->post('clientes/actualizar/(:num)', 'ClientesController::actualizar/$1');
+    $routes->get('clientes/eliminar/(:num)', 'ClientesController::eliminar/$1');
+});

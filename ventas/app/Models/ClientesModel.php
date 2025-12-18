@@ -4,15 +4,15 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class VentasModel extends Model
+class ClientesModel extends Model
 {
-    protected $table      = 'ventas';
+    protected $table      = 'clientes';
     protected $primaryKey = 'id';
 
     protected $allowedFields = [
-        'id_usuario',
-        'id_cliente',
-        'total'
+        'nombre',
+        'dni',
+        'direccion'
     ];
 
     protected $returnType = 'array';
