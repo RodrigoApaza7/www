@@ -16,7 +16,7 @@
                     <h4 class="mb-0"><i class="bi bi-person-plus-fill me-2"></i>Nuevo Usuario</h4>
                 </div>
                 <div class="card-body p-4">
-                    <form method="post" action="<?= site_url('usuarios/guardar') ?>">
+                    <form method="post" action="<?= site_url('registro/guardar') ?>">
                         <div class="mb-3">
                             <label for="nombre" class="form-label">Nombre</label>
                             <div class="input-group">
