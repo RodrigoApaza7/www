@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\VentasModel;
+use App\Models\ClientesModel;
 use App\Models\DetalleVentaModel;
 
 class VentasController extends BaseController
@@ -55,10 +56,10 @@ class VentasController extends BaseController
         $cliente = $clientesModel->where('dni', $dni)->first();
 
         if ($cliente) {
-            // asignar cliente a la venta
             $idVenta = session()->get('venta_id');
 
-            (new VentasModel())->update($idVenta, [
+            $ventasModel = new VentasModel();
+            $ventasModel->update($idVenta, [
                 'id_cliente' => $cliente['id']
             ]);
 
@@ -73,13 +74,36 @@ class VentasController extends BaseController
         ]);
     }
 
-    public function crearCliente()
-{
-    echo '<pre>';
-    var_dump('ENTRÓ A crearCliente');
-    var_dump($this->request->getPost());
-    exit;
-}
 
+    public function crearCliente()
+    {
+        $clientesModel = new ClientesModel();
+        $ventasModel   = new VentasModel();
+
+        $dni = $this->request->getPost('dni');
+
+        // evitar duplicado
+        if ($clientesModel->where('dni', $dni)->first()) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'Cliente ya existe'
+            ]);
+        }
+
+        $idCliente = $clientesModel->insert([
+            'nombre'    => $this->request->getPost('nombre'),
+            'dni'       => $dni,
+            'direccion' => $this->request->getPost('direccion')
+        ]);
+
+        $ventasModel->update(session()->get('venta_id'), [
+            'id_cliente' => $idCliente
+        ]);
+
+        return $this->response->setJSON([
+            'success' => true,
+            'cliente_id' => $idCliente
+        ]);
+    }
 
 }
