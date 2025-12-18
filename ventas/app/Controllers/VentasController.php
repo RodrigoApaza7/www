@@ -4,50 +4,47 @@ namespace App\Controllers;
 
 use App\Models\VentasModel;
 use App\Models\ClientesModel;
+use App\Models\ProductosModel;
+use App\Models\DetalleVentaModel;
 
 class VentasController extends BaseController
 {
     public function index()
     {
-        $model = new VentasModel();
-
-        $data['ventas'] = $model
-            ->select('ventas.*, clientes.nombre as cliente')
-            ->join('clientes', 'clientes.id = ventas.id_cliente')
-            ->orderBy('ventas.id', 'DESC')
-            ->findAll();
-
-        return view('ventas/index', $data);
-    }
-
-    public function crear()
-    {
+        $ventasModel   = new VentasModel();
         $clientesModel = new ClientesModel();
+        $productosModel = new ProductosModel();
+        $detalleModel  = new DetalleVentaModel();
 
-        $data['clientes'] = $clientesModel->findAll();
+        // 1. Ver si hay una venta activa en sesión
+        $idVenta = session()->get('venta_id');
 
-        return view('ventas/crear', $data);
-    }
+        // 2. Si no hay, crearla
+        if (!$idVenta) {
+            $ventasModel->insert([
+                'id_usuario' => session()->get('id'),
+                'id_cliente' => null,
+                'total'      => 0
+            ]);
 
-    public function guardar()
-    {
-        if (!$this->validate([
-            'id_cliente' => 'required'
-        ])) {
-            return redirect()->back()->withInput();
+            $idVenta = $ventasModel->getInsertID();
+            session()->set('venta_id', $idVenta);
         }
 
-        $model = new VentasModel();
+        // 3. Obtener detalle de la venta
+        $detalle = $detalleModel
+            ->select('detalle_venta.*, productos.nombre')
+            ->join('productos', 'productos.id = detalle_venta.id_producto')
+            ->where('id_venta', $idVenta)
+            ->findAll();
 
-        $model->insert([
-            'id_usuario' => session()->get('id'), // usuario logueado
-            'id_cliente' => $this->request->getPost('id_cliente'),
-            'total'      => 0
+        // 4. Total
+        $total = array_sum(array_column($detalle, 'subtotal'));
+
+        return view('ventas/index', [
+            'venta_id' => $idVenta,
+            'detalle'  => $detalle,
+            'total'    => $total
         ]);
-
-        $idVenta = $model->getInsertID();
-
-        // luego iremos a agregar productos
-        return redirect()->to(site_url('ventas/detalle/' . $idVenta));
     }
 }

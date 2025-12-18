@@ -82,9 +82,8 @@ $routes->group('', ['filter' => 'auth:admin,vendedor'], function ($routes) {
     // Ventas
     // =======================
     $routes->get('ventas', 'VentasController::index');
-    $routes->get('ventas/crear', 'VentasController::crear');
-    $routes->post('ventas/guardar', 'VentasController::guardar');
-    $routes->get('ventas/detalle/(:num)', 'VentasController::detalle/$1');
+    $routes->post('ventas/agregar-producto', 'VentasController::agregarProducto');
+    $routes->post('ventas/finalizar', 'VentasController::finalizar');
 
     // Clientes
     $routes->get('clientes', 'ClientesController::index');
