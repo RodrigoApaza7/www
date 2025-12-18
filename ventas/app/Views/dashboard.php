@@ -55,6 +55,7 @@
             <a href="#">Clientes</a>
             <a href="<?= site_url('usuarios') ?>">Gestionar Usuarios</a>
             <a href="<?= site_url('reportes/usuarios') ?>">Reportes</a>
+            <a href="<?= site_url('historial') ?>">📊 Historial de ventas</a>
             <a href="<?= site_url('categorias') ?>">Configuración</a>
         </div>
 
