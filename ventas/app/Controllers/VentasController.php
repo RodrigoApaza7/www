@@ -156,4 +156,40 @@ class VentasController extends BaseController
         ]);
     }
 
+    public function finalizar()
+    {
+        $ventasModel  = new \App\Models\VentasModel();
+        $detalleModel = new \App\Models\DetalleVentaModel();
+
+        $idVenta = session()->get('venta_id');
+
+        if (!$idVenta) {
+            return $this->response->setJSON([
+                'success' => false,
+                'message' => 'No hay venta activa'
+            ]);
+        }
+
+        // Calcular total real desde la BD
+        $detalle = $detalleModel
+            ->selectSum('subtotal')
+            ->where('id_venta', $idVenta)
+            ->first();
+
+        $total = $detalle['subtotal'] ?? 0;
+
+        // Guardar total en ventas
+        $ventasModel->update($idVenta, [
+            'total' => $total
+        ]);
+
+        // Limpiar sesión (cerrar venta)
+        session()->remove('venta_id');
+
+        return $this->response->setJSON([
+            'success' => true,
+            'total' => $total
+        ]);
+    }
+
 }
