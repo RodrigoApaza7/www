@@ -50,6 +50,7 @@ class Database extends Config
             'time'     => 'H:i:s',
         ],
     ];
+    public bool $DBDebug = true;
 
     //    /**
     //     * Sample database connection for SQLite3.
