@@ -9,6 +9,8 @@ class VentasController extends BaseController
 {
     public function index()
     {
+        $idUsuario = session()->get('usuario_id');
+
         $ventasModel  = new VentasModel();
         $detalleModel = new DetalleVentaModel();
 
