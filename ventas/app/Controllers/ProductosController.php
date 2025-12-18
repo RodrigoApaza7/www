@@ -20,11 +20,7 @@ class ProductosController extends BaseController
 
     public function crear()
     {
-        $data['categorias'] = $categoriasModel
-        ->where('estado', 1)
-        ->findAll();
-
-        dd($data['categorias']);
+        
 
 
         $categoriasModel = new CategoriasModel();
@@ -32,6 +28,12 @@ class ProductosController extends BaseController
         $data['categorias'] = $categoriasModel
             ->where('estado', 1)
             ->findAll();
+
+            $data['categorias'] = $categoriasModel
+        ->where('estado', 1)
+        ->findAll();
+
+        dd($data['categorias']);
 
         return view('productos/crear', $data);
     }
