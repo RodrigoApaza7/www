@@ -192,4 +192,46 @@ class VentasController extends BaseController
         ]);
     }
 
+    public function historial()
+    {
+        $ventasModel = new \App\Models\VentasModel();
+
+        $ventas = $ventasModel
+            ->select('ventas.*, clientes.nombre as cliente')
+            ->join('clientes', 'clientes.id = ventas.id_cliente', 'left')
+            ->where('ventas.total >', 0) // solo ventas cerradas
+            ->orderBy('ventas.id', 'DESC')
+            ->findAll();
+
+        return view('historial/historial', [
+            'ventas' => $ventas
+        ]);
+    }
+
+    public function ver($id)
+    {
+        $ventasModel  = new \App\Models\VentasModel();
+        $detalleModel = new \App\Models\DetalleVentaModel();
+
+        $venta = $ventasModel
+            ->select('ventas.*, clientes.nombre as cliente')
+            ->join('clientes', 'clientes.id = ventas.id_cliente', 'left')
+            ->find($id);
+
+        if (!$venta) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Venta no existe');
+        }
+
+        $detalle = $detalleModel
+            ->select('detalle_venta.*, productos.nombre')
+            ->join('productos', 'productos.id = detalle_venta.id_producto')
+            ->where('id_venta', $id)
+            ->findAll();
+
+        return view('historial/ver', [
+            'venta' => $venta,
+            'detalle' => $detalle
+        ]);
+    }
+
 }

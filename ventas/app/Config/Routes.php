@@ -95,4 +95,8 @@ $routes->group('', ['filter' => 'auth:admin,vendedor'], function ($routes) {
     $routes->get('clientes/editar/(:num)', 'ClientesController::editar/$1');
     $routes->post('clientes/actualizar/(:num)', 'ClientesController::actualizar/$1');
     $routes->get('clientes/eliminar/(:num)', 'ClientesController::eliminar/$1');
+
+    $routes->get('historial', 'VentasController::historial');
+    $routes->get('historial/(:num)', 'VentasController::ver/$1');
+
 });
