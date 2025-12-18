@@ -59,13 +59,15 @@ class ProductosController extends BaseController
 
     public function actualizar($id)
     {
-        $model = new ProductosModel();
+        $db=\Config\Database::connect(); // 👈 ESTA LÍNEA FALTABA
 
-        $model->update($id, [
-            'nombre' => $this->request->getPost('nombre'),
-            'precio' => $this->request->getPost('precio'),
-            'stock'  => $this->request->getPost('stock'),
-            'categoria_id' => $this->request->getPost('categoria_id')
+        $db->table('productos')
+        ->where('id', $id)
+        ->update([
+            'nombre'       => $this->request->getPost('nombre'),
+            'precio'       => $this->request->getPost('precio'),
+            'stock'        => $this->request->getPost('stock'),
+            'categoria_id' => (int) $this->request->getPost('categoria_id'),
         ]);
 
         return redirect()->to(site_url('productos'));
