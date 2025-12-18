@@ -1,3 +1,17 @@
+<h3>Cliente</h3>
+
+<input type="text" id="dni" placeholder="DNI">
+<button onclick="buscarCliente()">Buscar</button>
+
+<div id="cliente-info"></div>
+
+<div id="cliente-nuevo" style="display:none;">
+    <input type="text" id="nombre" placeholder="Nombre">
+    <input type="text" id="direccion" placeholder="Dirección">
+    <button onclick="crearCliente()">Crear cliente</button>
+</div>
+
+
 <h2>Punto de Venta</h2>
 
 <h3>Venta #<?= $venta_id ?></h3>
@@ -37,3 +51,47 @@
 <form action="<?= site_url('ventas/finalizar') ?>" method="post">
     <button type="submit">Finalizar Venta</button>
 </form>
+
+//------------------ JavaScript ------------------//
+<script>
+function buscarCliente() {
+    const dni = document.getElementById('dni').value;
+    const data = new FormData();
+    data.append('dni', dni);
+
+    fetch('caja/buscar-cliente', {
+        method: 'POST',
+        body: data
+    })
+    .then(r => r.json())
+    .then(res => {
+        if (res.existe) {
+            document.getElementById('cliente-info').innerHTML =
+                'Cliente: ' + res.cliente.nombre;
+            document.getElementById('cliente-nuevo').style.display = 'none';
+        } else {
+            document.getElementById('cliente-nuevo').style.display = 'block';
+        }
+    });
+}
+
+function crearCliente() {
+    const data = new FormData();
+    data.append('dni', document.getElementById('dni').value);
+    data.append('nombre', document.getElementById('nombre').value);
+    data.append('direccion', document.getElementById('direccion').value);
+
+    fetch('caja/crear-cliente', {
+        method: 'POST',
+        body: data
+    })
+    .then(r => r.json())
+    .then(res => {
+        if (res.success) {
+            document.getElementById('cliente-info').innerHTML =
+                'Cliente creado correctamente';
+            document.getElementById('cliente-nuevo').style.display = 'none';
+        }
+    });
+}
+</script>
