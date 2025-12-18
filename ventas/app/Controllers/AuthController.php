@@ -39,6 +39,25 @@ class AuthController extends BaseController
         return redirect()->to(site_url('dashboard'));
     }
 
+    public function registro()
+    {
+        return view('auth/registro');
+    }
+
+    public function guardarRegistro()
+    {
+        $model = new \App\Models\UsuariosModel();
+
+        $model->insert([
+            'nombre'   => $this->request->getPost('nombre'),
+            'usuario'  => $this->request->getPost('usuario'),
+            'password' => password_hash($this->request->getPost('password'), PASSWORD_DEFAULT),
+            'rol'      => 'vendedor', // por ejemplo
+        ]);
+
+        return redirect()->to(site_url('login'));
+    }
+
     public function logout()
     {
         session()->destroy();
