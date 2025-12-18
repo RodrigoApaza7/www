@@ -20,6 +20,13 @@ class ProductosController extends BaseController
 
     public function crear()
     {
+        $data['categorias'] = $categoriasModel
+        ->where('estado', 1)
+        ->findAll();
+
+        dd($data['categorias']);
+
+
         $categoriasModel = new CategoriasModel();
 
         $data['categorias'] = $categoriasModel
