@@ -13,6 +13,7 @@ $routes->get('/', 'AuthController::index');
 $routes->get('login', 'AuthController::index');
 $routes->post('login/autenticar', 'AuthController::autenticar');
 $routes->get('logout', 'AuthController::logout');
+    $routes->get('personas/crear', 'PersonasController::crear');
 
 
 // =======================
@@ -25,7 +26,7 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
 
     // Personas
     $routes->get('personas', 'PersonasController::index');
-    $routes->get('personas/crear', 'PersonasController::crear');
+
     $routes->post('personas/guardar', 'PersonasController::guardar');
     $routes->get('personas/editar/(:num)', 'PersonasController::editar/$1');
     $routes->post('personas/actualizar/(:num)', 'PersonasController::actualizar/$1');
