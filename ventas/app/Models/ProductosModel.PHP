@@ -6,6 +6,7 @@ use CodeIgniter\Model;
 
 class ProductosModel extends Model
 {
+    protected $useAutoIncrement = true;
     protected $table      = 'productos';
     protected $primaryKey = 'id';
 
