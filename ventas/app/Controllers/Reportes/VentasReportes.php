@@ -94,4 +94,87 @@ class VentasReportes extends BaseController
         $pdf->Output('venta_'.$venta['id'].'.pdf', 'I');
         exit;
     }
+    
+    public function pdfGeneral()
+    {
+        $ventasModel = new \App\Models\VentasModel();
+
+        // mismos filtros que la vista
+        $desde     = $this->request->getGet('desde');
+        $hasta     = $this->request->getGet('hasta');
+        $clienteId = $this->request->getGet('cliente_id');
+
+        $builder = $ventasModel
+            ->select('ventas.*, clientes.nombre as cliente')
+            ->join('clientes', 'clientes.id = ventas.id_cliente', 'left')
+            ->where('ventas.total >', 0);
+
+        if ($desde) {
+            $builder->where('DATE(ventas.fecha) >=', $desde);
+        }
+
+        if ($hasta) {
+            $builder->where('DATE(ventas.fecha) <=', $hasta);
+        }
+
+        if ($clienteId) {
+            $builder->where('ventas.id_cliente', $clienteId);
+        }
+
+        $ventas = $builder
+            ->orderBy('ventas.id', 'DESC')
+            ->findAll();
+
+        // ======================
+        // TCPDF
+        // ======================
+        $pdf = new \TCPDF();
+        $pdf->SetCreator('Sistema de Ventas');
+        $pdf->SetAuthor('Sistema');
+        $pdf->SetTitle('Reporte General de Ventas');
+        $pdf->SetMargins(15, 20, 15);
+        $pdf->AddPage();
+
+        $html = '<h2 style="text-align:center;">REPORTE GENERAL DE VENTAS</h2>';
+
+        if ($desde || $hasta) {
+            $html .= '<p><strong>Periodo:</strong> '
+                . ($desde ?: '—') . ' a ' . ($hasta ?: '—') . '</p>';
+        }
+
+        $html .= '<table border="1" cellpadding="5">
+                    <thead>
+                        <tr style="background-color:#f2f2f2;">
+                            <th>ID</th>
+                            <th>Fecha</th>
+                            <th>Cliente</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>';
+
+        $totalGeneral = 0;
+
+        foreach ($ventas as $v) {
+            $totalGeneral += $v['total'];
+
+            $html .= '<tr>
+                        <td>'.$v['id'].'</td>
+                        <td>'.$v['fecha'].'</td>
+                        <td>'.($v['cliente'] ?? '—').'</td>
+                        <td>'.number_format($v['total'], 2).'</td>
+                    </tr>';
+        }
+
+        $html .= '</tbody></table>';
+
+        $html .= '<h3 style="text-align:right;">
+                    TOTAL GENERAL: S/ '.number_format($totalGeneral, 2).'
+                </h3>';
+
+        $pdf->writeHTML($html);
+        $pdf->Output('reporte_ventas.pdf', 'I');
+        exit;
+    }
+
 }

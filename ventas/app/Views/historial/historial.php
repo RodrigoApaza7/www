@@ -15,17 +15,29 @@
     <label>Cliente:</label>
     <select name="cliente_id">
         <option value="">Todos</option>
-        <?php foreach ($clientes as $c): ?>
-            <option value="<?= $c['id'] ?>"
-                <?= (!empty($filtros['clienteId']) && $filtros['clienteId'] == $c['id']) ? 'selected' : '' ?>>
-                <?= esc($c['nombre']) ?>
-            </option>
-        <?php endforeach; ?>
+        <?php if (!empty($clientes)): ?>
+            <?php foreach ($clientes as $c): ?>
+                <option value="<?= $c['id'] ?>"
+                    <?= (!empty($filtros['clienteId']) && $filtros['clienteId'] == $c['id']) ? 'selected' : '' ?>>
+                    <?= esc($c['nombre']) ?>
+                </option>
+            <?php endforeach; ?>
+        <?php endif; ?>
     </select>
 
     <button type="submit">Filtrar</button>
     <a href="<?= site_url('historial') ?>">Limpiar</a>
 </form>
+
+<!-- =========================
+     BOTÓN PDF GENERAL
+========================= -->
+<br>
+<a href="<?= site_url('historial/pdf?' . http_build_query($_GET)) ?>"
+   target="_blank"
+   style="display:inline-block; margin-top:10px;">
+    📄 PDF del Historial
+</a>
 
 <hr>
 
