@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Sistema de Ventas - Home</title>
+    <title>Sistema de Ventas - Dashboard</title>
+
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
     <style>
         body {
             background-color: #f5f7fa;
@@ -41,66 +43,126 @@
         .card-title {
             font-weight: 600;
         }
+        .metric-value {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        .metric-label {
+            color: #6c757d;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
+
 <div class="container-fluid">
     <div class="row">
-        <!-- SIDEBAR -->
+
+        <!-- =========================
+             SIDEBAR
+        ========================= -->
         <div class="col-3 col-md-2 sidebar">
             <h3>Sistema Ventas</h3>
-            <a href="#">Dashboard</a>
+
+            <a href="<?= site_url('dashboard') ?>">Dashboard</a>
+            <a href="<?= site_url('caja') ?>">Caja / Ventas</a>
             <a href="<?= site_url('productos') ?>">Productos</a>
-            <a href="#">Ventas</a>
-            <a href="#">Clientes</a>
-            <a href="<?= site_url('usuarios') ?>">Gestionar Usuarios</a>
-            <a href="<?= site_url('reportes/usuarios') ?>">Reportes</a>
-            <a href="<?= site_url('historial') ?>">📊 Historial de ventas</a>
+            <a href="<?= site_url('clientes') ?>">Clientes</a>
+            <a href="<?= site_url('historial') ?>">Historial de Ventas</a>
+            <a href="<?= site_url('usuarios') ?>">Usuarios</a>
             <a href="<?= site_url('categorias') ?>">Configuración</a>
+            <a href="<?= site_url('logout') ?>">Cerrar sesión</a>
         </div>
 
-        <!-- MAIN CONTENT -->
+        <!-- =========================
+             MAIN CONTENT
+        ========================= -->
         <div class="col-9 col-md-10 p-0">
+
+            <!-- TOPBAR -->
             <div class="topbar d-flex justify-content-between align-items-center">
-                <h5 class="m-0">Inicio</h5>
-                <div>Usuario: Admin</div>
+                <h5 class="m-0">Dashboard</h5>
+                <div>
+                    Usuario: <?= esc(session()->get('usuario_nombre') ?? '—') ?>
+                </div>
             </div>
 
+            <!-- CONTENT -->
             <div class="container mt-4">
+
+                <!-- =========================
+                     MÉTRICAS PRINCIPALES
+                ========================= -->
                 <div class="row g-4">
+
+                    <!-- Ventas Hoy -->
                     <div class="col-md-4">
                         <div class="card shadow-sm p-3">
-                            <h5 class="card-title">Ventas Hoy</h5>
-                            <p class="display-6">S/ 0.00</p>
+                            <div class="metric-label">Ventas del día</div>
+                            <div class="metric-value">
+                                S/ <?= number_format($totalHoy ?? 0, 2) ?>
+                            </div>
+                            <small class="text-muted">
+                                Total de ventas cerradas hoy
+                            </small>
                         </div>
                     </div>
+
+                    <!-- Productos en Stock -->
                     <div class="col-md-4">
                         <div class="card shadow-sm p-3">
-                            <h5 class="card-title">Productos en Stock</h5>
-                            <p class="display-6">0</p>
+                            <div class="metric-label">Productos en stock</div>
+                            <div class="metric-value">
+                                <?= $productosStock ?? 0 ?>
+                            </div>
+                            <small class="text-muted">
+                                Unidades disponibles en inventario
+                            </small>
                         </div>
                     </div>
+
+                    <!-- Clientes Registrados -->
                     <div class="col-md-4">
                         <div class="card shadow-sm p-3">
-                            <h5 class="card-title">Clientes Registrados</h5>
-                            <p class="display-6">0</p>
+                            <div class="metric-label">Clientes registrados</div>
+                            <div class="metric-value">
+                                <?= $totalClientes ?? 0 ?>
+                            </div>
+                            <small class="text-muted">
+                                Total de clientes en el sistema
+                            </small>
                         </div>
                     </div>
+
                 </div>
 
+                <!-- =========================
+                     SECCIÓN RESUMEN
+                ========================= -->
                 <div class="row mt-5">
                     <div class="col-md-12">
-                        <div class="card shadow-sm p-3">
+                        <div class="card shadow-sm p-4">
                             <h5 class="card-title">Resumen General</h5>
                             <p>
-                                Bienvenido a tu sistema de ventas. Desde aquí podrás gestionar productos,
-                                registrar ventas, administrar clientes y generar reportes.
+                                Este panel muestra un resumen del estado actual del sistema:
+                                ventas realizadas, inventario disponible y clientes registrados.
+                                Desde aquí puedes acceder rápidamente a las principales
+                                funcionalidades del sistema de ventas.
                             </p>
+
+                            <ul>
+                                <li>Registrar nuevas ventas desde <strong>Caja</strong></li>
+                                <li>Gestionar productos y stock</li>
+                                <li>Consultar historial y generar reportes en PDF</li>
+                                <li>Visualizar métricas clave del negocio</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
+
     </div>
 </div>
 
