@@ -23,7 +23,7 @@ class ProductosController extends BaseController
         $categoriasModel = new CategoriasModel();
 
         $data['categorias'] = $categoriasModel
-            ->where('id, nombre, estado')
+            ->select('id, nombre, estado')
             ->where('estado', 1)
             ->findAll();
 
