@@ -31,22 +31,15 @@ class ProductosController extends BaseController
     }
 
     public function guardar()
-{
-    dd([
-        'nombre' => $this->request->getPost('nombre'),
-        'precio' => $this->request->getPost('precio'),
-        'stock' => $this->request->getPost('stock'),
-        'categoria_id' => $this->request->getPost('categoria_id'),
-    ]);
+    {
+        $model = new ProductosModel();
 
-    $model = new ProductosModel();
-
-    $model->insert([
-        'nombre' => $this->request->getPost('nombre'),
-        'precio' => $this->request->getPost('precio'),
-        'stock'  => $this->request->getPost('stock'),
-        'categoria_id' => $this->request->getPost('categoria_id')
-    ]);
+        $model->insert([
+            'nombre'       => $this->request->getPost('nombre'),
+            'precio'       => $this->request->getPost('precio'),
+            'stock'        => $this->request->getPost('stock'),
+            'categoria_id' => (int) $this->request->getPost('categoria_id'),
+        ]);
 
         return redirect()->to(site_url('productos'));
     }
