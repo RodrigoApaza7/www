@@ -39,7 +39,7 @@ class VentasController extends BaseController
         // 4. Total
         $total = array_sum(array_column($detalle, 'subtotal'));
 
-        return view('ventas/index_ventas', [
+        return view('ventas_tienda/index_ventas', [
             'venta_id' => $idVenta,
             'detalle'  => $detalle,
             'total'    => $total
