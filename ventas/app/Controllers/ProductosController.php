@@ -33,6 +33,8 @@ class ProductosController extends BaseController
     public function guardar()
     {
         $model = new ProductosModel();
+        $db = \Config\Database::connect();
+        dd($db->database);
 
         $model->insert([
             'nombre'       => $this->request->getPost('nombre'),
