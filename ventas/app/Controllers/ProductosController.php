@@ -36,7 +36,7 @@ class ProductosController extends BaseController
             'nombre'       => $this->request->getPost('nombre'),
             'precio'       => $this->request->getPost('precio'),
             'stock'        => $this->request->getPost('stock'),
-            'categoria_id' => $this->request->getPost('categoria_id'),
+            'categoria_id' => (int) $this->request->getPost('categoria_id'),
         ]);
 
         return redirect()->to(site_url('productos'));
