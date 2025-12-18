@@ -52,7 +52,6 @@
     <button type="submit">Finalizar Venta</button>
 </form>
 
-//------------------ JavaScript ------------------//
 <script>
 function buscarCliente() {
     const dni = document.getElementById('dni').value;
