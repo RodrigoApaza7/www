@@ -171,24 +171,6 @@
                         </div>
                     </div>
 
-                    <div class="col-md-6">
-                        <div class="form-group-custom">
-                            <label for="categoria_id" class="form-label">
-                                <i class="fas fa-tag me-2"></i>Categoría
-                            </label>
-                            <div class="input-icon">
-                                <i class="fas fa-list"></i>
-                                <select class="form-select" id="categoria_id" name="categoria_id" required>
-                                    <?php foreach ($categorias as $c): ?>
-                                        <option value="<?= $c['id'] ?>"
-                                            <?= $cliente['categoria_id'] == $c['id'] ? 'selected' : '' ?>>
-                                            <?= esc($c['nombre']) ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="form-group-custom">
