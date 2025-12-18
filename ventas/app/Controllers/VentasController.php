@@ -194,18 +194,7 @@ class VentasController extends BaseController
 
     public function historial()
     {
-        $ventasModel = new \App\Models\VentasModel();
-
-        $ventas = $ventasModel
-            ->select('ventas.*, clientes.nombre as cliente')
-            ->join('clientes', 'clientes.id = ventas.id_cliente', 'left')
-            ->where('ventas.total >', 0) // solo ventas cerradas
-            ->orderBy('ventas.id', 'DESC')
-            ->findAll();
-
-        return view('historial/historial', [
-            'ventas' => $ventas
-        ]);
+        return $this->historialFiltrar();
     }
 
     public function historialFiltrar()
