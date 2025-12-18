@@ -31,6 +31,9 @@ class ProductosController extends BaseController
 
     public function guardar()
     {
+        echo "ENTRÉ AL GUARDAR";
+        exit;
+
         dd($this->request->getPost());
 
         $model = new ProductosModel();
