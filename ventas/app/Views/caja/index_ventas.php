@@ -328,20 +328,32 @@ function agregarProducto() {
 /* =========================
    FINALIZAR VENTA (AJAX)
 ========================= */
-function finalizarVenta() {
-    fetch('<?= site_url('caja/finalizar') ?>', {
-        method: 'POST'
-    })
-    .then(res => res.json())
-    .then(data => {
-        if (data.success) {
-            alert('Venta finalizada correctamente');
-            location.reload();
-        } else {
-            alert(data.message);
+        function finalizarVenta() {
+            fetch('<?= site_url('caja/finalizar') ?>', {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+
+                    // Abrir la boleta en PDF en una nueva pestaña
+                    window.open(
+                        '<?= site_url('reportes/ventas/pdf/') ?>' + data.venta_id,
+                        '_blank'
+                    );
+
+                    // Recargar la página para iniciar una nueva venta
+                    location.reload();
+
+                } else {
+                    alert(data.message || 'Error al finalizar la venta');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error de conexión con el servidor');
+            });
         }
-    });
-}
     </script>
 </body>
 </html>

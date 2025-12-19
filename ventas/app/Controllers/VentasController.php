@@ -188,8 +188,9 @@ class VentasController extends BaseController
 
         return $this->response->setJSON([
             'success' => true,
-            'total' => $total
+            'venta_id' => $idVenta
         ]);
+
     }
 
     public function historial()
