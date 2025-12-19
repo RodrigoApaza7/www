@@ -25,13 +25,35 @@
             padding: 25px;
             border-radius: 12px;
             margin-bottom: 30px;
+        }
+        .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
         }
         .page-header h2 {
             margin: 0;
             font-weight: 700;
+        }
+        /* Botón Dashboard */
+        .btn-dashboard {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+        .btn-dashboard:hover {
+            background: white;
+            color: #4e54c8;
+            transform: translateX(-3px);
         }
         .btn-add-user {
             background: white;
@@ -49,6 +71,7 @@
             transform: translateY(-2px);
             box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
+        /* Estilos de tabla */
         .table-custom {
             border-radius: 10px;
             overflow: hidden;
@@ -91,7 +114,6 @@
         }
         .btn-edit-user:hover {
             background-color: #badbcc;
-            color: #0f5132;
             transform: scale(1.05);
         }
         .btn-delete-user {
@@ -101,8 +123,20 @@
         }
         .btn-delete-user:hover {
             background-color: #f5c2c7;
-            color: #842029;
             transform: scale(1.05);
+        }
+        .btn-back-bottom {
+            background-color: #6c757d;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        .btn-back-bottom:hover {
+            background-color: #5a6268;
+            color: white;
         }
     </style>
 </head>
@@ -112,10 +146,17 @@
         <div class="main-container">
             
             <div class="page-header">
-                <h2><i class="fas fa-users-cog me-2"></i>Listado de Usuarios</h2>
-                <a href="<?= site_url('usuarios/crear') ?>" class="btn-add-user">
-                    <i class="fas fa-plus-circle me-1"></i> Nueva Persona
-                </a>
+                <div class="mb-3">
+                    <a href="<?= site_url('dashboard') ?>" class="btn-dashboard">
+                        <i class="fas fa-th-large me-2"></i> Volver al Dashboard
+                    </a>
+                </div>
+                <div class="header-content">
+                    <h2><i class="fas fa-users-cog me-2"></i>Listado de Usuarios</h2>
+                    <a href="<?= site_url('usuarios/crear') ?>" class="btn-add-user">
+                        <i class="fas fa-plus-circle me-1"></i> Nueva Persona
+                    </a>
+                </div>
             </div>
 
             <div class="table-responsive">
@@ -177,6 +218,12 @@
                     <p class="text-muted">No hay usuarios registrados en el sistema.</p>
                 </div>
             <?php endif; ?>
+
+            <div class="mt-4 border-top pt-3">
+                <a href="<?= site_url('dashboard') ?>" class="btn-back-bottom">
+                    <i class="fas fa-arrow-left me-2"></i> Regresar al Inicio
+                </a>
+            </div>
 
         </div>
     </div>
