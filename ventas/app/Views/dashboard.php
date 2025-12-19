@@ -84,6 +84,7 @@
                 <a href="<?= site_url('dashboard') ?>"><i class="fas fa-chart-pie me-2"></i> Dashboard</a>
                 <a href="<?= site_url('caja') ?>"><i class="fas fa-cash-register me-2"></i> Caja / Ventas</a>
                 <a href="<?= site_url('productos') ?>"><i class="fas fa-box me-2"></i> Productos</a>
+                <a href="<?= site_url('categorias') ?>"><i class="fas fa-tags me-2"></i> Categorías</a>
                 <a href="<?= site_url('clientes') ?>"><i class="fas fa-users me-2"></i> Clientes</a>
                 <a href="<?= site_url('historial') ?>"><i class="fas fa-file-invoice-dollar me-2"></i> Historial</a>
                 <a href="<?= site_url('usuarios') ?>"><i class="fas fa-user-shield me-2"></i> Usuarios</a>
