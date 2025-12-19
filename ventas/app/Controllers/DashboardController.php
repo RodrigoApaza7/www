@@ -36,7 +36,7 @@ class DashboardController extends BaseController
         $totalClientes = $clientesModel->countAll();
 
         // =========================
-        // VENTAS ÚLTIMOS 7 DÍAS (Chart.js)
+        // VENTAS ÚLTIMOS 7 DÍAS (LINE)
         // =========================
         $ventasPorDia = $ventasModel
             ->select("DATE(fecha) as dia, SUM(total) as total")
@@ -46,12 +46,32 @@ class DashboardController extends BaseController
             ->orderBy('dia', 'ASC')
             ->findAll();
 
-        $labels = [];
-        $data   = [];
+        $ventasLabels = [];
+        $ventasData   = [];
 
         foreach ($ventasPorDia as $v) {
-            $labels[] = $v['dia'];
-            $data[]   = (float) $v['total'];
+            $ventasLabels[] = $v['dia'];
+            $ventasData[]   = (float) $v['total'];
+        }
+
+        // =========================
+        // TOP 5 CLIENTES POR VENTAS (DOUGHNUT)
+        // =========================
+        $ventasPorCliente = $ventasModel
+            ->select('clientes.nombre as cliente, SUM(ventas.total) as total')
+            ->join('clientes', 'clientes.id = ventas.id_cliente')
+            ->where('ventas.total >', 0)
+            ->groupBy('clientes.id')
+            ->orderBy('total', 'DESC')
+            ->limit(5)
+            ->findAll();
+
+        $clientesLabels = [];
+        $clientesData   = [];
+
+        foreach ($ventasPorCliente as $v) {
+            $clientesLabels[] = $v['cliente'];
+            $clientesData[]   = (float) $v['total'];
         }
 
         return view('dashboard', [
@@ -60,9 +80,11 @@ class DashboardController extends BaseController
             'productosStock' => $productosStock,
             'totalClientes'  => $totalClientes,
 
-            // chart
-            'ventasLabels' => json_encode($labels),
-            'ventasData'   => json_encode($data),
+            // charts
+            'ventasLabels'   => json_encode($ventasLabels),
+            'ventasData'     => json_encode($ventasData),
+            'clientesLabels' => json_encode($clientesLabels),
+            'clientesData'   => json_encode($clientesData),
         ]);
     }
 }
