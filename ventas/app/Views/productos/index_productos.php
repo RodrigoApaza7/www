@@ -57,9 +57,6 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
         }
-        .table-custom tbody tr {
-            transition: background-color 0.2s;
-        }
         .table-custom tbody tr:hover {
             background-color: #f8f9fa;
         }
@@ -102,12 +99,13 @@
             color: #000;
             transform: translateY(-2px);
         }
-        .btn-delete {
-            background-color: #dc3545;
+        /* BOTÓN DESACTIVAR (REEMPLAZA AL DE ELIMINAR) */
+        .btn-disable {
+            background-color: #fd7e14; /* Color naranja fuerte/rojo suave */
             color: white;
         }
-        .btn-delete:hover {
-            background-color: #c82333;
+        .btn-disable:hover {
+            background-color: #e8590c;
             color: white;
             transform: translateY(-2px);
         }
@@ -193,10 +191,10 @@
                                     <a href="<?= site_url('productos/editar/'.$p['id']) ?>" class="btn-action btn-edit">
                                         <i class="fas fa-edit me-1"></i>Editar
                                     </a>
-                                    <a href="<?= site_url('productos/eliminar/'.$p['id']) ?>" 
-                                       class="btn-action btn-delete" 
-                                       onclick="return confirm('¿Está seguro de eliminar este producto?')">
-                                        <i class="fas fa-trash-alt me-1"></i>Eliminar
+                                    <a href="<?= site_url('productos/desactivar/'.$p['id']) ?>" 
+                                       class="btn-action btn-disable" 
+                                       onclick="return confirm('¿Está seguro de desactivar este producto?')">
+                                        <i class="fas fa-ban me-1"></i>Desactivar
                                     </a>
                                 </td>
                             </tr>

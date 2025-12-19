@@ -80,4 +80,16 @@ class ProductosController extends BaseController
         return redirect()->to(site_url('productos'));
     }
 
+    public function desactivar($id)
+    {
+        $model = new ProductosModel();
+
+        $model->update($id, [
+            'estado' => 0
+        ]);
+
+        return redirect()->to(site_url('productos'))
+            ->with('mensaje', 'Producto desactivado correctamente');
+    }
+
 }
