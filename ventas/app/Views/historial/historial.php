@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Historial de Ventas</title>
+    
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
     <style>
         body {
             background-color: #f8f9fa;
@@ -24,10 +28,7 @@
             border-radius: 12px;
             margin-bottom: 30px;
         }
-        .page-header h2 {
-            margin: 0;
-            font-weight: 700;
-        }
+        .page-header h2 { margin: 0; font-weight: 700; }
         .filter-section {
             background: #f8f9fa;
             padding: 25px;
@@ -35,11 +36,7 @@
             margin-bottom: 25px;
             border: 2px solid #e9ecef;
         }
-        .filter-section h5 {
-            color: #667eea;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
+        .filter-section h5 { color: #667eea; font-weight: 600; margin-bottom: 20px; }
         .form-label {
             font-weight: 600;
             color: #495057;
@@ -81,11 +78,7 @@
             display: inline-block;
             transition: transform 0.2s;
         }
-        .btn-clear:hover {
-            background: #5a6268;
-            color: white;
-            transform: translateY(-2px);
-        }
+        .btn-clear:hover { background: #5a6268; color: white; transform: translateY(-2px); }
         
         /* Botones de Reporte PDF Superior */
         .btn-pdf-general {
@@ -99,11 +92,7 @@
             display: inline-block;
             transition: transform 0.2s;
         }
-        .btn-pdf-general:hover {
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(245, 87, 108, 0.4);
-        }
+        .btn-pdf-general:hover { color: white; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(245, 87, 108, 0.4); }
 
         .btn-export-general {
             background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
@@ -116,27 +105,19 @@
             display: inline-block;
             transition: transform 0.2s;
         }
-        .btn-export-general:hover {
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(56, 239, 125, 0.4);
-        }
+        .btn-export-general:hover { color: white; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(56, 239, 125, 0.4); }
 
+        /* Estilos Tabla Personalizados para que DataTables no rompa el diseño */
         .table-custom {
-            background: white;
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border: none !important;
         }
-        .table-custom thead {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-        .table-custom tbody tr {
-            transition: background-color 0.2s;
-        }
-        .table-custom tbody tr:hover {
-            background-color: #f8f9fa;
+        .table-custom thead th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            color: white !important;
+            border: none !important;
+            padding: 15px !important;
         }
         .btn-action {
             padding: 5px 12px;
@@ -148,34 +129,8 @@
             margin: 0 2px;
             font-weight: 500;
         }
-        .btn-view {
-            background-color: #0d6efd;
-            color: white;
-        }
-        .btn-view:hover {
-            background-color: #0b5ed7;
-            color: white;
-            transform: translateY(-2px);
-        }
-        .btn-pdf {
-            background-color: #dc3545;
-            color: white;
-        }
-        .btn-pdf:hover {
-            background-color: #c82333;
-            color: white;
-            transform: translateY(-2px);
-        }
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: #6c757d;
-        }
-        .empty-state i {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            opacity: 0.5;
-        }
+        .btn-view { background-color: #0d6efd; color: white; }
+        .btn-pdf { background-color: #dc3545; color: white; }
         .btn-back {
             background: #6c757d;
             color: white;
@@ -184,12 +139,14 @@
             text-decoration: none;
             display: inline-block;
             font-weight: 600;
-            transition: transform 0.2s;
         }
-        .btn-back:hover {
-            background: #5a6268;
-            color: white;
-            transform: translateY(-2px);
+        
+        /* Ajuste para buscador de DataTables */
+        .dataTables_wrapper .dataTables_filter input {
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 5px 10px;
+            margin-bottom: 15px;
         }
     </style>
 </head>
@@ -205,35 +162,20 @@
                 <form method="get" action="<?= site_url('historial/filtrar') ?>">
                     <div class="row g-3">
                         <div class="col-md-3">
-                            <label for="desde" class="form-label">
-                                <i class="fas fa-calendar-alt me-2"></i>Desde
-                            </label>
-                            <input type="date" 
-                                   class="form-control" 
-                                   id="desde" 
-                                   name="desde"
-                                   value="<?= esc($filtros['desde'] ?? '') ?>">
+                            <label for="desde" class="form-label">Desde</label>
+                            <input type="date" class="form-control" id="desde" name="desde" value="<?= esc($filtros['desde'] ?? '') ?>">
                         </div>
                         <div class="col-md-3">
-                            <label for="hasta" class="form-label">
-                                <i class="fas fa-calendar-check me-2"></i>Hasta
-                            </label>
-                            <input type="date" 
-                                   class="form-control" 
-                                   id="hasta" 
-                                   name="hasta"
-                                   value="<?= esc($filtros['hasta'] ?? '') ?>">
+                            <label for="hasta" class="form-label">Hasta</label>
+                            <input type="date" class="form-control" id="hasta" name="hasta" value="<?= esc($filtros['hasta'] ?? '') ?>">
                         </div>
                         <div class="col-md-3">
-                            <label for="cliente_id" class="form-label">
-                                <i class="fas fa-user me-2"></i>Cliente
-                            </label>
+                            <label for="cliente_id" class="form-label">Cliente</label>
                             <select class="form-select" id="cliente_id" name="cliente_id">
                                 <option value="">Todos los clientes</option>
                                 <?php if (!empty($clientes)): ?>
                                     <?php foreach ($clientes as $c): ?>
-                                        <option value="<?= $c['id'] ?>"
-                                            <?= (!empty($filtros['clienteId']) && $filtros['clienteId'] == $c['id']) ? 'selected' : '' ?>>
+                                        <option value="<?= $c['id'] ?>" <?= (!empty($filtros['clienteId']) && $filtros['clienteId'] == $c['id']) ? 'selected' : '' ?>>
                                             <?= esc($c['nombre']) ?>
                                         </option>
                                     <?php endforeach; ?>
@@ -241,54 +183,35 @@
                             </select>
                         </div>
                         <div class="col-md-3 d-flex align-items-end gap-2">
-                            <button type="submit" class="btn-filter flex-fill">
-                                <i class="fas fa-search me-2"></i>Filtrar
-                            </button>
-                            <a href="<?= site_url('historial') ?>" class="btn-clear">
-                                <i class="fas fa-eraser me-2"></i>Limpiar
-                            </a>
+                            <button type="submit" class="btn-filter flex-fill">Filtrar</button>
+                            <a href="<?= site_url('historial') ?>" class="btn-clear">Limpiar</a>
                         </div>
                     </div>
                 </form>
             </div>
 
             <div class="d-flex flex-wrap gap-2 mb-4">
-                <a href="<?= site_url('historial/pdf?' . http_build_query($_GET)) ?>"
-                   target="_blank"
-                   class="btn-pdf-general">
-                    <i class="fas fa-file-pdf me-2"></i>Generar PDF del Historial
+                <a href="<?= site_url('historial/pdf?' . http_build_query($_GET)) ?>" target="_blank" class="btn-pdf-general">
+                    <i class="fas fa-file-pdf me-2"></i>Generar PDF Historial
                 </a>
-                
-                <a href="<?= site_url('reportes/ventas/pdf-general?' . http_build_query($_GET)) ?>"
-                   target="_blank"
-                   class="btn-export-general">
+                <a href="<?= site_url('reportes/ventas/pdf-general?' . http_build_query($_GET)) ?>" target="_blank" class="btn-export-general">
                     <i class="fas fa-file-export me-2"></i>Exportar PDF General
                 </a>
             </div>
 
             <div class="table-responsive">
-                <table class="table table-custom table-hover align-middle">
+                <table id="tablaVentas" class="table table-custom table-hover align-middle display shadow-sm" style="width:100%">
                     <thead>
                         <tr>
-                            <th style="width: 8%;"><i class="fas fa-hashtag me-2"></i>ID</th>
-                            <th style="width: 20%;"><i class="fas fa-calendar me-2"></i>Fecha</th>
-                            <th style="width: 30%;"><i class="fas fa-user me-2"></i>Cliente</th>
-                            <th style="width: 20%;" class="text-end"><i class="fas fa-money-bill-wave me-2"></i>Total</th>
-                            <th style="width: 22%;" class="text-center"><i class="fas fa-cog me-2"></i>Acciones</th>
+                            <th>ID</th>
+                            <th>Fecha</th>
+                            <th>Cliente</th>
+                            <th class="text-end">Total</th>
+                            <th class="text-center">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php if (empty($ventas)): ?>
-                            <tr>
-                                <td colspan="5">
-                                    <div class="empty-state">
-                                        <i class="fas fa-inbox"></i>
-                                        <h5>No se encontraron resultados</h5>
-                                        <p>Intenta ajustar los filtros de búsqueda</p>
-                                    </div>
-                                </td>
-                            </tr>
-                        <?php else: ?>
+                        <?php if (!empty($ventas)): ?>
                             <?php foreach ($ventas as $v): ?>
                                 <tr>
                                     <td><strong><?= $v['id'] ?></strong></td>
@@ -296,17 +219,8 @@
                                     <td><?= esc($v['cliente'] ?? 'No especificado') ?></td>
                                     <td class="text-end fw-bold">S/ <?= number_format($v['total'], 2) ?></td>
                                     <td class="text-center">
-                                        <a href="<?= site_url('historial/' . $v['id']) ?>" 
-                                           class="btn-action btn-view"
-                                           title="Ver detalle">
-                                            <i class="fas fa-eye me-1"></i>Ver
-                                        </a>
-                                        <a href="<?= site_url('reportes/ventas/pdf/' . $v['id']) ?>"
-                                           target="_blank"
-                                           class="btn-action btn-pdf"
-                                           title="Descargar PDF">
-                                            <i class="fas fa-file-pdf me-1"></i>PDF
-                                        </a>
+                                        <a href="<?= site_url('historial/' . $v['id']) ?>" class="btn-action btn-view"><i class="fas fa-eye me-1"></i>Ver</a>
+                                        <a href="<?= site_url('reportes/ventas/pdf/' . $v['id']) ?>" target="_blank" class="btn-action btn-pdf"><i class="fas fa-file-pdf me-1"></i>PDF</a>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -323,6 +237,20 @@
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#tablaVentas').DataTable({
+                pageLength: 10,
+                order: [[0, 'desc']], // Ordenar por ID descendente
+                language: {
+                    url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+                }
+            });
+        });
+    </script>
 </body>
 </html>
