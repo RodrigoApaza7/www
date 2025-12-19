@@ -115,5 +115,23 @@ class ProductosController extends BaseController
         return redirect()->to(site_url('productos/inactivos'));
     }
 
+    public function cambiarEstado($id)
+    {
+        $model = new \App\Models\ProductosModel();
+
+        $producto = $model->find($id);
+
+        if (!$producto) {
+            return redirect()->back();
+        }
+
+        $nuevoEstado = $producto['estado'] == 1 ? 0 : 1;
+
+        $model->update($id, [
+            'estado' => $nuevoEstado
+        ]);
+
+        return redirect()->back();
+    }
 
 }
