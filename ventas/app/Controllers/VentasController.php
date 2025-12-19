@@ -211,7 +211,6 @@ class VentasController extends BaseController
             ->select('ventas.*, clientes.nombre as cliente')
             ->join('clientes', 'clientes.id = ventas.id_cliente', 'left')
             ->where('ventas.total >', 0);
-            ->where('DATE(ventas.fecha)', date('Y-m-d'));
 
         if ($desde) {
             $builder->where('DATE(ventas.fecha) >=', $desde);
@@ -226,7 +225,7 @@ class VentasController extends BaseController
         }
 
         $ventas = $builder
-            ->orderBy('ventas.id', 'DESC')
+            ->orderBy('ventas.fecha', 'DESC')
             ->findAll();
 
         $clientes = (new \App\Models\ClientesModel())->findAll();
