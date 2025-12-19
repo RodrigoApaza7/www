@@ -9,6 +9,8 @@ class DashboardController extends BaseController
     public function index()
     {
         $ventasModel = new VentasModel();
+        $productosModel = new ProductosModel();
+        $clientesModel  = new ClientesModel();
 
         // =========================
         // TOTAL VENDIDO HOY
@@ -21,6 +23,19 @@ class DashboardController extends BaseController
 
         return view('dashboard', [
             'totalHoy' => $totalHoy['total'] ?? 0
+        ]);
+        
+        // 🔹 Total de productos con stock > 0
+        $productosStock = $productosModel
+            ->where('stock >', 0)
+            ->countAllResults();
+
+        // 🔹 Total de clientes registrados
+        $totalClientes = $clientesModel->countAll();
+
+        return view('dashboard', [
+            'productosStock' => $productosStock,
+            'totalClientes'  => $totalClientes
         ]);
     }
 }
