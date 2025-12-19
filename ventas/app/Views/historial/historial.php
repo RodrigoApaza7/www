@@ -41,12 +41,37 @@
             font-size: 0.85rem !important;
             font-weight: 600 !important;
         }
+        
+        .btn-dashboard {
+            background: rgba(255, 255, 255, 0.2); /* Fondo semi-transparente */
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.3s;
+        }
+
+        .btn-dashboard:hover {
+            background: white;
+            color: #4e54c8; /* Cambia este color según el gradiente de tu página */
+            transform: translateX(-3px);
+        }
+
     </style>
 </head>
 <body>
     <div class="container-fluid">
         <div class="main-container">
             <div class="page-header">
+                <div class="mb-3">
+                    <a href="<?= site_url('dashboard') ?>" class="btn-dashboard">
+                        <i class="fas fa-th-large me-2"></i> Volver al Dashboard
+                    </a>
+                </div>
                 <h2><i class="fas fa-history me-2"></i>Historial de Ventas</h2>
             </div>
 
