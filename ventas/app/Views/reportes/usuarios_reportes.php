@@ -136,6 +136,24 @@
             font-weight: 500;
             color: white;
         }
+        .btn-dashboard {
+        background: rgba(255, 255, 255, 0.2); /* Fondo semi-transparente */
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        padding: 8px 15px;
+        border-radius: 8px;
+        font-weight: 500;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        transition: all 0.3s;
+    }
+
+    .btn-dashboard:hover {
+        background: white;
+        color: #4e54c8; /* Cambia este color según el gradiente de tu página */
+        transform: translateX(-3px);
+    }
     </style>
 </head>
 <body>
