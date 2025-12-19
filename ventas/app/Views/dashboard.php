@@ -18,7 +18,7 @@
             background-color: #f1f5f9;
             font-family: 'Inter', "Segoe UI", sans-serif;
         }
-        /* Sidebar Mejorado */
+        /* Sidebar */
         .sidebar {
             background: var(--sidebar-bg);
             min-height: 100vh;
@@ -37,9 +37,7 @@
             letter-spacing: 1px;
             color: var(--accent-color);
         }
-        .nav-links {
-            padding: 15px 0;
-        }
+        .nav-links { padding: 15px 0; }
         .sidebar a, .accordion-button {
             color: #cbd5e1;
             text-decoration: none;
@@ -50,79 +48,28 @@
             transition: 0.3s;
             border: none;
         }
-        .sidebar a i, .accordion-button i {
-            width: 25px;
-            font-size: 1.1rem;
-        }
-        .sidebar a:hover, .accordion-button:hover {
-            background: var(--sidebar-hover);
-            color: #fff;
-        }
-        /* Corrección Acordeón Reportes */
-        .accordion-item {
-            background: transparent;
-            border: none;
-        }
-        .accordion-button {
-            background: transparent !important;
-            box-shadow: none !important;
-        }
-        .accordion-button::after {
-            filter: brightness(0) invert(1); /* Flecha blanca */
-        }
-        .accordion-body {
-            background: rgba(0,0,0,0.15);
-            padding: 0;
-        }
-        .accordion-body a {
-            padding-left: 50px;
-            font-size: 13px;
-        }
+        .sidebar a i, .accordion-button i { width: 25px; font-size: 1.1rem; }
+        .sidebar a:hover, .accordion-button:hover { background: var(--sidebar-hover); color: #fff; }
+        
+        /* Acordeón Reportes */
+        .accordion-item { background: transparent; border: none; }
+        .accordion-button { background: transparent !important; box-shadow: none !important; }
+        .accordion-button::after { filter: brightness(0) invert(1); }
+        .accordion-body { background: rgba(0,0,0,0.15); padding: 0; }
+        .accordion-body a { padding-left: 50px; font-size: 13px; }
+
         /* Topbar */
-        .topbar {
-            background: #fff;
-            border-bottom: 1px solid #e2e8f0;
-            padding: 15px 30px;
-        }
-        .user-badge {
-            background: #f8fafc;
-            padding: 5px 15px;
-            border-radius: 20px;
-            border: 1px solid #e2e8f0;
-            font-weight: 500;
-        }
-        /* Cards de Métricas */
-        .card-metric {
-            border: none;
-            border-radius: 16px;
-            transition: transform 0.3s;
-        }
-        .card-metric:hover {
-            transform: translateY(-5px);
-        }
+        .topbar { background: #fff; border-bottom: 1px solid #e2e8f0; padding: 15px 30px; }
+        .user-badge { background: #f8fafc; padding: 5px 15px; border-radius: 20px; border: 1px solid #e2e8f0; font-weight: 500; }
+
+        /* Métricas */
+        .card-metric { border: none; border-radius: 16px; transition: transform 0.3s; }
         .icon-shape {
-            width: 48px;
-            height: 48px;
-            background: #e0f2fe;
-            color: #0284c7;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
+            width: 48px; height: 48px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
         }
-        .metric-value {
-            font-size: 1.75rem;
-            font-weight: 800;
-            color: #1e293b;
-        }
-        .logout-link {
-            color: #fb7185 !important;
-            margin-top: 20px;
-        }
-        .logout-link:hover {
-            background: #4c1d24 !important;
-        }
+        .metric-value { font-size: 1.75rem; font-weight: 800; color: #1e293b; }
+        .logout-link { color: #fb7185 !important; margin-top: 20px; }
     </style>
 </head>
 
@@ -130,11 +77,10 @@
 <div class="container-fluid p-0">
     <div class="row g-0">
 
-        <div class="col-lg-2 sidebar">
+        <div class="col-lg-2 sidebar d-none d-lg-block">
             <div class="sidebar-header">
-                <h4><i class="fas fa-rocket me-2"></i>SystemPC</h4>
+                <h4><i class="fas fa-rocket me-2"></i>POS SYSTEM</h4>
             </div>
-
             <div class="nav-links">
                 <a href="<?= site_url('dashboard') ?>"><i class="fas fa-chart-pie"></i> Dashboard</a>
                 <a href="<?= site_url('caja') ?>"><i class="fas fa-cash-register"></i> Caja / Ventas</a>
@@ -159,20 +105,14 @@
                         </div>
                     </div>
                 </div>
-
                 <hr class="mx-3 opacity-25">
                 <a href="<?= site_url('logout') ?>" class="logout-link"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
             </div>
         </div>
 
-        <div class="col-lg-10">
-
+        <div class="col-lg-10 col-md-12">
             <div class="topbar d-flex justify-content-between align-items-center">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item active fw-bold text-dark" aria-current="page">Panel Principal</li>
-                    </ol>
-                </nav>
+                <h5 class="m-0 fw-bold">Dashboard Informativo</h5>
                 <div class="user-badge">
                     <i class="fas fa-circle-user text-primary me-2"></i>
                     <span class="small"><?= esc(session()->get('usuario_nombre') ?? 'Admin') ?></span>
@@ -180,93 +120,112 @@
             </div>
 
             <div class="p-4">
-                <div class="container-fluid">
-                    
-                    <div class="row g-4">
-                        <div class="col-md-4">
-                            <div class="card card-metric shadow-sm p-3">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <div>
-                                        <p class="text-muted small mb-1 uppercase fw-bold">Ventas del día</p>
-                                        <div class="metric-value">S/ <?= number_format($totalHoy ?? 0, 2) ?></div>
-                                    </div>
-                                    <div class="icon-shape" style="background: #dcfce7; color: #16a34a;">
-                                        <i class="fas fa-coins"></i>
-                                    </div>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="card card-metric shadow-sm p-3">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <p class="text-muted small mb-1 fw-bold">VENTAS DEL DÍA</p>
+                                    <div class="metric-value">S/ <?= number_format($totalHoy ?? 0, 2) ?></div>
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="card card-metric shadow-sm p-3">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <div>
-                                        <p class="text-muted small mb-1 uppercase fw-bold">Productos en Stock</p>
-                                        <div class="metric-value"><?= $productosStock ?? 0 ?></div>
-                                    </div>
-                                    <div class="icon-shape" style="background: #fef9c3; color: #ca8a04;">
-                                        <i class="fas fa-boxes-stacked"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="card card-metric shadow-sm p-3">
-                                <div class="d-flex align-items-center justify-content-between">
-                                    <div>
-                                        <p class="text-muted small mb-1 uppercase fw-bold">Total Clientes</p>
-                                        <div class="metric-value"><?= $totalClientes ?? 0 ?></div>
-                                    </div>
-                                    <div class="icon-shape" style="background: #e0f2fe; color: #0284c7;">
-                                        <i class="fas fa-user-group"></i>
-                                    </div>
-                                </div>
+                                <div class="icon-shape" style="background: #dcfce7; color: #16a34a;"><i class="fas fa-coins"></i></div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="row mt-4">
-                        <div class="col-12">
-                            <div class="card border-0 shadow-sm overflow-hidden">
-                                <div class="card-header bg-white py-3">
-                                    <h5 class="m-0 fw-bold"><i class="fas fa-circle-info text-primary me-2"></i>Estado del Sistema</h5>
+                    <div class="col-md-4">
+                        <div class="card card-metric shadow-sm p-3">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <p class="text-muted small mb-1 fw-bold">STOCK PRODUCTOS</p>
+                                    <div class="metric-value"><?= $productosStock ?? 0 ?></div>
                                 </div>
-                                <div class="card-body p-4">
-                                    <div class="row align-items-center">
-                                        <div class="col-md-8">
-                                            <p class="text-secondary">Bienvenido al panel de control central. Aquí tienes un resumen de las capacidades activas:</p>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <ul class="list-unstyled">
-                                                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Monitoreo en tiempo real</li>
-                                                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Control de inventario</li>
-                                                    </ul>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <ul class="list-unstyled">
-                                                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Reportes PDF exportables</li>
-                                                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Seguridad de usuarios</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4 text-center d-none d-md-block">
-                                            <i class="fas fa-chart-line fa-8x text-light"></i>
-                                        </div>
-                                    </div>
-                                </div>
+                                <div class="icon-shape" style="background: #fef9c3; color: #ca8a04;"><i class="fas fa-boxes-stacked"></i></div>
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-4">
+                        <div class="card card-metric shadow-sm p-3">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <div>
+                                    <p class="text-muted small mb-1 fw-bold">TOTAL CLIENTES</p>
+                                    <div class="metric-value"><?= $totalClientes ?? 0 ?></div>
+                                </div>
+                                <div class="icon-shape" style="background: #e0f2fe; color: #0284c7;"><i class="fas fa-user-group"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="row mt-5">
+                    <div class="col-md-12">
+                        <div class="card border-0 shadow-sm p-4" style="border-radius: 15px;">
+                            <h5 class="card-title fw-bold mb-4">
+                                <i class="fas fa-chart-line text-primary me-2"></i>Ventas últimos 7 días
+                            </h5>
+                            <div style="position: relative; height: 350px;">
+                                <canvas id="ventasChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="card border-0 shadow-sm p-4" style="border-radius: 15px;">
+                            <h5 class="fw-bold"><i class="fas fa-circle-info text-primary me-2"></i>Resumen General</h5>
+                            <p class="text-secondary">Este panel muestra el rendimiento reciente de tu negocio.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const ctx = document.getElementById('ventasChart');
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: <?= $ventasLabels ?>, // Ejemplo: ["Lun", "Mar", "Mie"...]
+            datasets: [{
+                label: 'Ventas (S/)',
+                data: <?= $ventasData ?>, // Ejemplo: [120, 450, 300...]
+                fill: true,
+                backgroundColor: 'rgba(56, 189, 248, 0.1)', // Color cian suave debajo de la línea
+                borderColor: '#0284c7', // Color azul sólido para la línea
+                borderWidth: 3,
+                tension: 0.4, // Curva la línea para que se vea más moderna
+                pointBackgroundColor: '#0284c7',
+                pointRadius: 4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                    labels: { font: { family: 'Inter', weight: '600' } }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: { color: '#f1f5f9' },
+                    ticks: { callback: function(value) { return 'S/ ' + value; } }
+                },
+                x: {
+                    grid: { display: false }
+                }
+            }
+        }
+    });
+</script>
 </body>
 </html>

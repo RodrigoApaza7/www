@@ -10,7 +10,7 @@ class DashboardController extends BaseController
 {
     public function index()
     {
-        $ventasModel = new VentasModel();
+        $ventasModel    = new VentasModel();
         $productosModel = new ProductosModel();
         $clientesModel  = new ClientesModel();
 
@@ -23,18 +23,46 @@ class DashboardController extends BaseController
             ->where('total >', 0)
             ->first();
 
-        // 🔹 Total de productos con stock > 0
+        // =========================
+        // PRODUCTOS EN STOCK
+        // =========================
         $productosStock = $productosModel
             ->where('stock >', 0)
             ->countAllResults();
 
-        // 🔹 Total de clientes registrados
+        // =========================
+        // CLIENTES REGISTRADOS
+        // =========================
         $totalClientes = $clientesModel->countAll();
 
+        // =========================
+        // VENTAS ÚLTIMOS 7 DÍAS (Chart.js)
+        // =========================
+        $ventasPorDia = $ventasModel
+            ->select("DATE(fecha) as dia, SUM(total) as total")
+            ->where('total >', 0)
+            ->where('fecha >=', date('Y-m-d', strtotime('-6 days')))
+            ->groupBy('DATE(fecha)')
+            ->orderBy('dia', 'ASC')
+            ->findAll();
+
+        $labels = [];
+        $data   = [];
+
+        foreach ($ventasPorDia as $v) {
+            $labels[] = $v['dia'];
+            $data[]   = (float) $v['total'];
+        }
+
         return view('dashboard', [
+            // cards
             'totalHoy'       => $totalHoy['total'] ?? 0,
             'productosStock' => $productosStock,
-            'totalClientes'  => $totalClientes
+            'totalClientes'  => $totalClientes,
+
+            // chart
+            'ventasLabels' => json_encode($labels),
+            'ventasData'   => json_encode($data),
         ]);
     }
 }
