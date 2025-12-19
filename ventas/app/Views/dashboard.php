@@ -328,7 +328,7 @@
 
         <div class="col-lg-2 sidebar d-none d-lg-block">
             <div class="sidebar-header">
-                <h4><i class="fas fa-rocket me-2"></i>POS SYSTEM</h4>
+                <h4><i class="fas fa-rocket me-2"></i>SystemPC</h4>
             </div>
             <div class="nav-links">
                 <a href="<?= site_url('dashboard') ?>"><i class="fas fa-chart-pie"></i> Dashboard</a>
