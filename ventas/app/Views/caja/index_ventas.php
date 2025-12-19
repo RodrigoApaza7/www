@@ -106,6 +106,26 @@
             border-radius: 8px;
             margin-right: 10px;
         }
+
+        .btn-dashboard-caja {
+            background: #495057;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .btn-dashboard-caja:hover {
+            background: #343a40;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
     </style>
 </head>
 <body>
@@ -212,7 +232,11 @@
             </div>
 
             <!-- FINALIZAR VENTA -->
-            <div class="text-center">
+            <div class="d-flex justify-content-center align-items-center gap-3 mt-4">
+                <a href="<?= site_url('dashboard') ?>" class="btn-dashboard-caja">
+                    <i class="fas fa-th-large me-2"></i>Dashboard
+                </a>
+
                 <button type="button" class="btn btn-custom-success btn-lg px-5" onclick="finalizarVenta()">
                     <i class="fas fa-check-circle me-2"></i>Finalizar Venta
                 </button>
