@@ -35,13 +35,13 @@
             color: #495057;
             margin-bottom: 8px;
         }
-        .form-control, .form-select {
+        .form-control {
             border: 2px solid #e9ecef;
             border-radius: 8px;
             padding: 12px 15px;
             transition: all 0.3s;
         }
-        .form-control:focus, .form-select:focus {
+        .form-control:focus {
             border-color: #ffc107;
             box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25);
         }
@@ -89,8 +89,7 @@
             transform: translateY(-50%);
             color: #6c757d;
         }
-        .input-icon .form-control, 
-        .input-icon .form-select {
+        .input-icon .form-control {
             padding-left: 45px;
         }
         .form-group-custom {
@@ -153,7 +152,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="form-group-custom">
                             <label for="dni" class="form-label">
                                 <i class="fas fa-id-card me-2"></i>DNI
@@ -167,25 +166,6 @@
                                        value="<?= $cliente['dni'] ?>" 
                                        maxlength="8"
                                        required>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="form-group-custom">
-                            <label for="categoria_id" class="form-label">
-                                <i class="fas fa-tag me-2"></i>Categoría
-                            </label>
-                            <div class="input-icon">
-                                <i class="fas fa-list"></i>
-                                <select class="form-select" id="categoria_id" name="categoria_id" required>
-                                    <?php foreach ($categorias as $c): ?>
-                                        <option value="<?= $c['id'] ?>"
-                                            <?= $cliente['categoria_id'] == $c['id'] ? 'selected' : '' ?>>
-                                            <?= esc($c['nombre']) ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
                             </div>
                         </div>
                     </div>
