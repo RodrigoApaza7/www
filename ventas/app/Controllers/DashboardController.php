@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\VentasModel;
+use App\Models\ProductosModel;
+use App\Models\ClientesModel;
 
 class DashboardController extends BaseController
 {
@@ -24,7 +26,7 @@ class DashboardController extends BaseController
         return view('dashboard', [
             'totalHoy' => $totalHoy['total'] ?? 0
         ]);
-        
+
         // 🔹 Total de productos con stock > 0
         $productosStock = $productosModel
             ->where('stock >', 0)
