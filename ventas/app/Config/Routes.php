@@ -43,6 +43,9 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
     $routes->post('productos/actualizar/(:num)', 'ProductosController::actualizar/$1');
     $routes->get('productos/eliminar/(:num)', 'ProductosController::eliminar/$1');
     $routes->get('productos/desactivar/(:num)', 'ProductosController::desactivar/$1');
+    $routes->get('productos/inactivos', 'ProductosController::inactivos');
+    $routes->get('productos/activar/(:num)', 'ProductosController::activar/$1');
+
 
 });
 

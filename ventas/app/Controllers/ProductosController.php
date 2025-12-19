@@ -88,8 +88,32 @@ class ProductosController extends BaseController
             'estado' => 0
         ]);
 
-        return redirect()->to(site_url('productos'))
-            ->with('mensaje', 'Producto desactivado correctamente');
+        return redirect()->to(site_url('productos'));
     }
+
+    public function inactivos()
+    {
+        $model = new \App\Models\ProductosModel();
+
+        $data['productos'] = $model
+            ->select('productos.*, categorias.nombre AS categoria')
+            ->join('categorias', 'categorias.id = productos.categoria_id', 'left')
+            ->where('productos.estado', 0)
+            ->findAll();
+
+        return view('productos/inactivos', $data);
+    }
+
+    public function activar($id)
+    {
+        $model = new \App\Models\ProductosModel();
+
+        $model->update($id, [
+            'estado' => 1
+        ]);
+
+        return redirect()->to(site_url('productos/inactivos'));
+    }
+
 
 }
