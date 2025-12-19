@@ -13,6 +13,7 @@ class ProductosController extends BaseController
         $data['productos'] = $model
             ->select('productos.*, categorias.nombre AS categoria')
             ->join('categorias', 'categorias.id = productos.categoria_id', 'left')
+            ->where('productos.estado', 1)
             ->findAll();
 
         return view('productos/index_productos', $data);
@@ -75,9 +76,8 @@ class ProductosController extends BaseController
 
     public function eliminar($id)
     {
-        $model = new ProductosModel();
-        $model->delete($id);
-
+        $this->model->update($id, ['estado' => 0]);
         return redirect()->to(site_url('productos'));
     }
+
 }
