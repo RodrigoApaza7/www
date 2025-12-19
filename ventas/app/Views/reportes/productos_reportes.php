@@ -133,6 +133,11 @@
     <div class="container-fluid">
         <div class="main-container">
             <div class="page-header">
+                <div class="mb-3">
+                    <a href="<?= site_url('dashboard') ?>" class="btn-dashboard">
+                        <i class="fas fa-th-large me-2"></i> Volver al Dashboard
+                    </a>
+                </div>
                 <h2><i class="fas fa-chart-bar me-2"></i>Reporte de Productos</h2>
             </div>
 
