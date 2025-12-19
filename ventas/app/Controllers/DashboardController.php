@@ -23,10 +23,6 @@ class DashboardController extends BaseController
             ->where('total >', 0)
             ->first();
 
-        return view('dashboard', [
-            'totalHoy' => $totalHoy['total'] ?? 0
-        ]);
-
         // 🔹 Total de productos con stock > 0
         $productosStock = $productosModel
             ->where('stock >', 0)
@@ -36,6 +32,7 @@ class DashboardController extends BaseController
         $totalClientes = $clientesModel->countAll();
 
         return view('dashboard', [
+            'totalHoy'       => $totalHoy['total'] ?? 0,
             'productosStock' => $productosStock,
             'totalClientes'  => $totalClientes
         ]);
