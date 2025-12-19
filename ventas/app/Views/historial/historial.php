@@ -86,23 +86,42 @@
             color: white;
             transform: translateY(-2px);
         }
+        
+        /* Botones de Reporte PDF Superior */
         .btn-pdf-general {
             background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             border: none;
             color: white;
-            padding: 12px 30px;
+            padding: 12px 25px;
             border-radius: 8px;
             font-weight: 600;
             text-decoration: none;
             display: inline-block;
             transition: transform 0.2s;
-            margin-bottom: 20px;
         }
         .btn-pdf-general:hover {
             color: white;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(245, 87, 108, 0.4);
         }
+
+        .btn-export-general {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            border: none;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+        .btn-export-general:hover {
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(56, 239, 125, 0.4);
+        }
+
         .table-custom {
             background: white;
             border-radius: 10px;
@@ -181,7 +200,6 @@
                 <h2><i class="fas fa-chart-line me-2"></i>Historial de Ventas</h2>
             </div>
 
-            <!-- FILTROS -->
             <div class="filter-section">
                 <h5><i class="fas fa-filter me-2"></i>Filtros de Búsqueda</h5>
                 <form method="get" action="<?= site_url('historial/filtrar') ?>">
@@ -234,16 +252,20 @@
                 </form>
             </div>
 
-            <!-- BOTÓN PDF GENERAL -->
-            <div class="mb-3">
+            <div class="d-flex flex-wrap gap-2 mb-4">
                 <a href="<?= site_url('historial/pdf?' . http_build_query($_GET)) ?>"
                    target="_blank"
                    class="btn-pdf-general">
                     <i class="fas fa-file-pdf me-2"></i>Generar PDF del Historial
                 </a>
+                
+                <a href="<?= site_url('reportes/ventas/pdf-general?' . http_build_query($_GET)) ?>"
+                   target="_blank"
+                   class="btn-export-general">
+                    <i class="fas fa-file-export me-2"></i>Exportar PDF General
+                </a>
             </div>
 
-            <!-- TABLA DE RESULTADOS -->
             <div class="table-responsive">
                 <table class="table table-custom table-hover align-middle">
                     <thead>

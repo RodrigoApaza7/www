@@ -27,9 +27,13 @@ class VentasReportes extends BaseController
 
         // Obtener venta + cliente
         $venta = $ventasModel
-            ->select('ventas.*, clientes.nombre as cliente')
+            -->select('ventas.*, clientes.nombre as cliente, clientes.dni')
             ->join('clientes', 'clientes.id = ventas.id_cliente', 'left')
             ->find($id);
+            
+        if ($venta['total'] <= 0) {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Venta no finalizada');
+        }
 
         if (!$venta) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Venta no encontrada');
@@ -60,7 +64,8 @@ class VentasReportes extends BaseController
         $html .= '<p>
                     <strong>Venta #:</strong> '.$venta['id'].'<br>
                     <strong>Fecha:</strong> '.$venta['fecha'].'<br>
-                    <strong>Cliente:</strong> '.($venta['cliente'] ?? '—').'
+                    <strong>Cliente:</strong> '.($venta['cliente'] ?? '—').'<br>
+                    <strong>DNI:</strong> '.($venta['dni'] ?? '—').'
                   </p>';
 
         $html .= '<table border="1" cellpadding="5">
