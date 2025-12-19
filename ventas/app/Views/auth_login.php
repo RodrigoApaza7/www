@@ -14,6 +14,7 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         .login-container {
             background: white;
@@ -52,29 +53,56 @@
             margin-bottom: 8px;
             font-size: 0.9rem;
         }
+        
+        /* --- CORRECCIÓN DE INPUTS --- */
         .input-group-custom {
             position: relative;
-            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
         }
-        .input-group-custom i {
+        
+        /* Icono de la izquierda (Usuario/Candado) */
+        .input-group-custom > .fa-user, 
+        .input-group-custom > .fa-lock {
             position: absolute;
             left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
             color: #6c757d;
-            z-index: 10;
+            z-index: 5;
+            pointer-events: none; /* Evita que el icono bloquee el click */
         }
+        
         .form-control {
             border: 2px solid #e9ecef;
-            border-radius: 10px;
-            padding: 12px 15px 12px 45px;
+            border-radius: 10px !important;
+            padding: 12px 45px 12px 45px; /* Espacio para iconos izq y der */
             transition: all 0.3s;
             font-size: 0.95rem;
+            width: 100%;
+            z-index: 1;
         }
+
         .form-control:focus {
             border-color: #667eea;
             box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+            z-index: 2;
         }
+
+        /* Icono del Ojo (Derecha) */
+        .password-toggle {
+            position: absolute;
+            right: 15px;
+            cursor: pointer;
+            color: #6c757d;
+            z-index: 10; /* Asegura que esté por encima para recibir el click */
+            padding: 10px; /* Aumenta el área de click del ojo */
+            margin-right: -5px;
+        }
+        
+        .password-toggle:hover {
+            color: #667eea;
+        }
+        /* ---------------------------- */
+
         .btn-login {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border: none;
@@ -99,9 +127,7 @@
             margin-bottom: 25px;
             background: #fee;
             border-left: 4px solid #dc3545;
-        }
-        .alert-custom i {
-            margin-right: 8px;
+            color: #842029;
         }
         .register-link {
             text-align: center;
@@ -113,23 +139,6 @@
             color: #667eea;
             font-weight: 600;
             text-decoration: none;
-            transition: color 0.2s;
-        }
-        .register-link a:hover {
-            color: #764ba2;
-            text-decoration: underline;
-        }
-        .password-toggle {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: #6c757d;
-            z-index: 10;
-        }
-        .password-toggle:hover {
-            color: #667eea;
         }
     </style>
 </head>
@@ -144,7 +153,7 @@
         <div class="login-body">
             <?php if (session()->getFlashdata('error')) : ?>
                 <div class="alert-custom">
-                    <i class="fas fa-exclamation-circle"></i>
+                    <i class="fas fa-exclamation-circle me-2"></i>
                     <strong>Error:</strong> <?= session()->getFlashdata('error') ?>
                 </div>
             <?php endif; ?>
@@ -153,9 +162,7 @@
                 <?= csrf_field() ?>
                 
                 <div class="mb-4">
-                    <label class="form-label">
-                        <i class="fas fa-user me-1"></i>Usuario
-                    </label>
+                    <label class="form-label">Usuario</label>
                     <div class="input-group-custom">
                         <i class="fas fa-user"></i>
                         <input type="text" 
@@ -168,9 +175,7 @@
                 </div>
 
                 <div class="mb-4">
-                    <label class="form-label">
-                        <i class="fas fa-lock me-1"></i>Contraseña
-                    </label>
+                    <label class="form-label">Contraseña</label>
                     <div class="input-group-custom">
                         <i class="fas fa-lock"></i>
                         <input type="password" 
@@ -201,7 +206,6 @@
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
         function togglePasswordVisibility() {
             const passwordInput = document.getElementById('password');
