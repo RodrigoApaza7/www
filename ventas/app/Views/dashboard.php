@@ -446,56 +446,75 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-    // Gráfico 1: Ventas
-    const ctxVentas = document.getElementById('ventasChart');
-    new Chart(ctxVentas, {
-        type: 'line',
-        data: {
-            labels: <?= $ventasLabels ?>,
-            datasets: [{
-                label: 'Ventas (S/)',
-                data: <?= $ventasData ?>,
-                fill: true,
-                backgroundColor: 'rgba(56, 189, 248, 0.1)',
-                borderColor: '#0284c7',
-                borderWidth: 3,
-                tension: 0.4
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false
-        }
-    });
+document.addEventListener('DOMContentLoaded', () => {
 
+    // =========================
+    // Gráfico 1: Ventas
+    // =========================
+    const ventasCanvas = document.getElementById('ventasChart');
+
+    if (ventasCanvas) {
+        const ctxVentas = ventasCanvas.getContext('2d');
+
+        new Chart(ctxVentas, {
+            type: 'line',
+            data: {
+                labels: <?= $ventasLabels ?>,
+                datasets: [{
+                    label: 'Ventas (S/)',
+                    data: <?= $ventasData ?>,
+                    fill: true,
+                    backgroundColor: 'rgba(56, 189, 248, 0.1)',
+                    borderColor: '#0284c7',
+                    borderWidth: 3,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    }
+
+    // =========================
     // Gráfico 2: Clientes (Dona)
-    const ctxClientes = document.getElementById('clientesChart');
-    new Chart(ctxClientes, {
-        type: 'doughnut',
-        data: {
-            labels: <?= $clientesLabels ?>, // Ejemplo: ["Frecuentes", "Nuevos", "Inactivos"]
-            datasets: [{
-                data: <?= $clientesData ?>,
-                backgroundColor: [
-                    '#38bdf8', // Azul
-                    '#10b981', // Verde
-                    '#f59e0b', // Ámbar
-                    '#6366f1', // Indigo
-                    '#ef4444'  // Rojo
-                ],
-                hoverOffset: 10
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    position: 'bottom'
+    // =========================
+    const clientesCanvas = document.getElementById('clientesChart');
+
+    if (clientesCanvas) {
+        const ctxClientes = clientesCanvas.getContext('2d');
+
+        new Chart(ctxClientes, {
+            type: 'doughnut',
+            data: {
+                labels: <?= $clientesLabels ?>,
+                datasets: [{
+                    data: <?= $clientesData ?>,
+                    backgroundColor: [
+                        '#38bdf8', // Azul
+                        '#10b981', // Verde
+                        '#f59e0b', // Ámbar
+                        '#6366f1', // Indigo
+                        '#ef4444'  // Rojo
+                    ],
+                    hoverOffset: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
                 }
             }
-        }
-    });
+        });
+    }
+
+});
 </script>
+
 </body>
 </html>
