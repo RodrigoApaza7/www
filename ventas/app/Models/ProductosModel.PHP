@@ -14,7 +14,8 @@ class ProductosModel extends Model
         'nombre',
         'precio',
         'stock',
-        'categoria_id'
+        'categoria_id',
+        'estado'
     ];
 
     protected $returnType = 'array';
