@@ -82,7 +82,7 @@ class ProductosController extends BaseController
 
     public function desactivar($id)
     {
-        $model = new ProductosModel();
+        $model = new \App\Models\ProductosModel();
 
         $model->update($id, [
             'estado' => 0
