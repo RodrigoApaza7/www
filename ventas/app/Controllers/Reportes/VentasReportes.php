@@ -182,4 +182,65 @@ class VentasReportes extends BaseController
         exit;
     }
 
+        /**
+     * EXPORTAR CSV
+     */
+    public function csv()
+    {
+        $ventasModel = new \App\Models\VentasModel();
+
+        $ventas = $ventasModel
+            ->select('ventas.id, ventas.fecha, clientes.nombre as cliente, ventas.total')
+            ->join('clientes', 'clientes.id = ventas.id_cliente', 'left')
+            ->where('ventas.total >', 0)
+            ->orderBy('ventas.id', 'DESC')
+            ->findAll();
+
+        header('Content-Type: text/csv');
+        header('Content-Disposition: attachment; filename="ventas.csv"');
+
+        $output = fopen('php://output', 'w');
+        fputcsv($output, ['ID', 'Fecha', 'Cliente', 'Total']);
+
+        foreach ($ventas as $v) {
+            fputcsv($output, [
+                $v['id'],
+                $v['fecha'],
+                $v['cliente'] ?? '—',
+                $v['total']
+            ]);
+        }
+
+        fclose($output);
+        exit;
+    }
+
+    /**
+     * EXPORTAR EXCEL (XLS)
+     */
+    public function excel()
+    {
+        $ventasModel = new \App\Models\VentasModel();
+
+        $ventas = $ventasModel
+            ->select('ventas.id, ventas.fecha, clientes.nombre as cliente, ventas.total')
+            ->join('clientes', 'clientes.id = ventas.id_cliente', 'left')
+            ->where('ventas.total >', 0)
+            ->orderBy('ventas.id', 'DESC')
+            ->findAll();
+
+        header("Content-Type: application/vnd.ms-excel");
+        header("Content-Disposition: attachment; filename=ventas.xls");
+
+        echo "ID\tFecha\tCliente\tTotal\n";
+
+        foreach ($ventas as $v) {
+            echo $v['id'] . "\t";
+            echo $v['fecha'] . "\t";
+            echo ($v['cliente'] ?? '—') . "\t";
+            echo $v['total'] . "\n";
+        }
+        exit;
+    }
+
 }

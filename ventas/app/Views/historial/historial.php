@@ -7,50 +7,51 @@
     
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.1/css/buttons.dataTables.min.css">
 
     <style>
-        body { background-color: #f8f9fa; padding: 20px 0; }
+        body { background-color: #f8f9fa; padding: 20px 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         .main-container { background: white; border-radius: 15px; box-shadow: 0 0 20px rgba(0,0,0,0.1); padding: 30px; }
         .page-header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 25px; border-radius: 12px; margin-bottom: 30px; }
         .page-header h2 { margin: 0; font-weight: 700; }
         
-        /* Estilos de los botones de DataTables para que combinen con tu diseño */
-        .dt-buttons { margin-bottom: 15px; }
-        button.dt-button, div.dt-button, a.dt-button {
-            background: #667eea !important;
-            color: white !important;
-            border-radius: 8px !important;
-            border: none !important;
-            font-weight: 600 !important;
-            padding: 8px 15px !important;
-        }
-        button.dt-button:hover { background: #764ba2 !important; }
-
+        /* Sección de Filtros */
         .filter-section { background: #f8f9fa; padding: 25px; border-radius: 12px; margin-bottom: 25px; border: 2px solid #e9ecef; }
         .form-label { font-weight: 600; color: #495057; text-transform: uppercase; font-size: 0.875rem; }
         
+        /* Estilo de la Tabla */
         .table-custom thead th {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
             color: white !important;
             padding: 15px !important;
+            border: none !important;
         }
-        .btn-action { padding: 5px 12px; border-radius: 5px; text-decoration: none; font-size: 0.875rem; font-weight: 500; }
+        .btn-action { padding: 5px 12px; border-radius: 5px; text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: 0.3s; }
         .btn-view { background-color: #0d6efd; color: white; }
         .btn-pdf { background-color: #dc3545; color: white; }
+        .btn-view:hover, .btn-pdf:hover { opacity: 0.8; color: white; }
+
+        /* Botones de DataTables (Vista Rápida) */
+        .dt-buttons { margin-bottom: 15px !important; }
+        button.dt-button {
+            background: #e9ecef !important;
+            border: 1px solid #ced4da !important;
+            border-radius: 6px !important;
+            font-size: 0.85rem !important;
+            font-weight: 600 !important;
+        }
     </style>
 </head>
 <body>
     <div class="container-fluid">
         <div class="main-container">
             <div class="page-header">
-                <h2><i class="fas fa-chart-line me-2"></i>Historial de Ventas</h2>
+                <h2><i class="fas fa-history me-2"></i>Historial de Ventas</h2>
             </div>
 
             <div class="filter-section">
-                <h5><i class="fas fa-filter me-2"></i>Filtros de Búsqueda</h5>
+                <h5><i class="fas fa-filter me-2" style="color: #667eea;"></i>Filtros de Búsqueda</h5>
                 <form method="get" action="<?= site_url('historial/filtrar') ?>">
                     <div class="row g-3">
                         <div class="col-md-3">
@@ -65,16 +66,31 @@
                             <label class="form-label">Cliente</label>
                             <select class="form-select" name="cliente_id">
                                 <option value="">Todos los clientes</option>
-                                <?php foreach ($clientes as $c): ?>
-                                    <option value="<?= $c['id'] ?>"><?= esc($c['nombre']) ?></option>
-                                <?php endforeach; ?>
+                                <?php if(!empty($clientes)): foreach ($clientes as $c): ?>
+                                    <option value="<?= $c['id'] ?>" <?= (isset($filtros['cliente_id']) && $filtros['cliente_id'] == $c['id']) ? 'selected' : '' ?>>
+                                        <?= esc($c['nombre']) ?>
+                                    </option>
+                                <?php endforeach; endif; ?>
                             </select>
                         </div>
                         <div class="col-md-3 d-flex align-items-end gap-2">
-                            <button type="submit" class="btn btn-primary w-100">Filtrar</button>
+                            <button type="submit" class="btn btn-primary w-100 fw-bold">Filtrar</button>
+                            <a href="<?= site_url('historial') ?>" class="btn btn-outline-secondary">Limpiar</a>
                         </div>
                     </div>
                 </form>
+            </div>
+
+            <div class="d-flex flex-wrap gap-2 mb-4">
+                <a href="<?= site_url('reportes/ventas/pdf-general?' . http_build_query($_GET)) ?>" target="_blank" class="btn btn-danger px-4 fw-bold shadow-sm">
+                    <i class="fas fa-file-pdf me-2"></i>Exportar PDF
+                </a>
+                <a href="<?= site_url('reportes/ventas/excel?' . http_build_query($_GET)) ?>" class="btn btn-success px-4 fw-bold shadow-sm">
+                    <i class="fas fa-file-excel me-2"></i>Exportar Excel
+                </a>
+                <a href="<?= site_url('reportes/ventas/csv?' . http_build_query($_GET)) ?>" class="btn btn-secondary px-4 fw-bold shadow-sm">
+                    <i class="fas fa-file-csv me-2"></i>Exportar CSV
+                </a>
             </div>
 
             <div class="table-responsive">
@@ -89,20 +105,30 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($ventas as $v): ?>
+                        <?php if(!empty($ventas)): foreach ($ventas as $v): ?>
                             <tr>
-                                <td><strong><?= $v['id'] ?></strong></td>
-                                <td><?= $v['fecha'] ?></td>
-                                <td><?= esc($v['cliente'] ?? 'No especificado') ?></td>
-                                <td class="text-end fw-bold">S/ <?= number_format($v['total'], 2) ?></td>
+                                <td><strong>#<?= $v['id'] ?></strong></td>
+                                <td><?= date('d/m/Y H:i', strtotime($v['fecha'])) ?></td>
+                                <td><?= esc($v['cliente'] ?? 'Público General') ?></td>
+                                <td class="text-end fw-bold text-dark">S/ <?= number_format($v['total'], 2) ?></td>
                                 <td class="text-center">
-                                    <a href="<?= site_url('historial/' . $v['id']) ?>" class="btn-action btn-view">Ver</a>
-                                    <a href="<?= site_url('reportes/ventas/pdf/' . $v['id']) ?>" class="btn-action btn-pdf">PDF</a>
+                                    <a href="<?= site_url('historial/' . $v['id']) ?>" class="btn-action btn-view shadow-sm" title="Ver Detalle">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    <a href="<?= site_url('reportes/ventas/pdf/' . $v['id']) ?>" target="_blank" class="btn-action btn-pdf shadow-sm" title="Descargar PDF">
+                                        <i class="fas fa-file-pdf"></i>
+                                    </a>
                                 </td>
                             </tr>
-                        <?php endforeach; ?>
+                        <?php endforeach; endif; ?>
                     </tbody>
                 </table>
+            </div>
+
+            <div class="mt-4">
+                <a href="<?= site_url('caja') ?>" class="btn btn-link text-decoration-none text-muted">
+                    <i class="fas fa-arrow-left me-2"></i>Volver a Ventas
+                </a>
             </div>
         </div>
     </div>
@@ -111,7 +137,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    
     <script src="https://cdn.datatables.net/buttons/2.4.1/js/dataTables.buttons.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
@@ -121,20 +146,14 @@
     <script>
         $(document).ready(function () {
             $('#tablaVentas').DataTable({
-                // dom: 'Bfrtip' -> B: Botones, f: Filtro, r: Procesando, t: Tabla, i: Info, p: Paginación
-                dom: '<"d-flex justify-content-between"fB>rtip', 
+                // dom: f: Filtro, B: Botones de exportación rápida, t: tabla, p: paginación
+                dom: '<"d-flex justify-content-between align-items-center mb-3"fB>rtip',
                 buttons: [
                     {
                         extend: 'excelHtml5',
-                        text: '<i class="fas fa-file-excel"></i> Excel',
-                        title: 'Historial de Ventas',
-                        className: 'btn btn-success'
-                    },
-                    {
-                        extend: 'pdfHtml5',
-                        text: '<i class="fas fa-file-pdf"></i> Exportar PDF',
-                        title: 'Historial de Ventas',
-                        className: 'btn btn-danger'
+                        text: '<i class="fas fa-table me-1"></i> Vista rápida Excel',
+                        className: 'btn btn-sm btn-outline-success',
+                        title: 'Reporte_Ventas_Vista_Rapida'
                     }
                 ],
                 pageLength: 10,
