@@ -163,51 +163,56 @@
                 <table class="table table-hover align-middle table-custom">
                     <thead>
                         <tr>
-                            <th style="width: 10%;">ID</th>
-                            <th style="width: 30%;">Nombre Completo</th>
-                            <th style="width: 20%;">Usuario</th>
-                            <th style="width: 20%;">Contraseña</th>
-                            <th style="width: 20%; text-align: center;">Acciones</th>
+                            <th style="width: 5%;">ID</th>
+                            <th style="width: 25%;">Nombre Completo</th>
+                            <th style="width: 15%;">Usuario</th>
+                            <th style="width: 15%;">Hobbie</th> <th style="width: 15%;">Contraseña</th>
+                            <th style="width: 25%; text-align: center;">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($usuarios as $p): ?>
-                        <tr>
-                            <td><span class="text-muted fw-bold">#<?= $p['id'] ?></span></td>
-                            <td>
-                                <div class="d-flex align-items-center">
-                                    <div class="rounded-circle bg-light d-flex justify-content-center align-items-center me-3" style="width: 40px; height: 40px; color: #4e54c8;">
-                                        <i class="fas fa-user"></i>
+                        <?php if (!empty($usuarios)): ?>
+                            <?php foreach ($usuarios as $p): ?>
+                            <tr>
+                                <td><span class="text-muted fw-bold">#<?= $p['id'] ?></span></td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="rounded-circle bg-light d-flex justify-content-center align-items-center me-3" style="width: 40px; height: 40px; color: #4e54c8;">
+                                            <i class="fas fa-user"></i>
+                                        </div>
+                                        <span class="fw-semibold"><?= $p['nombre'] ?></span>
                                     </div>
-                                    <span class="fw-semibold"><?= $p['nombre'] ?></span>
-                                </div>
-                            </td>
-                            <td>
-                                <span class="user-badge"><i class="fas fa-at me-1"></i><?= $p['usuario'] ?></span>
-                            </td>
-                            <td>
-                                <span class="text-muted small">
-                                    <i class="fas fa-lock me-1"></i><?= str_repeat('•', 8) ?>
-                                </span>
-                            </td>
-                            <td>
-                                <div class="d-flex justify-content-center gap-2">
-                                    <a href="<?= site_url('usuarios/editar/'.$p['id']) ?>" 
-                                       class="btn-action btn-edit-user text-decoration-none" 
-                                       title="Editar usuario">
-                                        <i class="fas fa-edit me-1"></i> Editar
-                                    </a>
+                                </td>
+                                <td>
+                                    <span class="user-badge"><i class="fas fa-at me-1"></i><?= $p['usuario'] ?></span>
+                                </td>
+                                <td>
+                                    <span><?= !empty($p['hobbie']) ? esc($p['hobbie']) : '---' ?></span>
+                                </td>
+                                <td>
+                                    <span class="text-muted small">
+                                        <i class="fas fa-lock me-1"></i><?= str_repeat('•', 8) ?>
+                                    </span>
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <a href="<?= site_url('usuarios/editar/'.$p['id']) ?>" 
+                                           class="btn-action btn-edit-user text-decoration-none" 
+                                           title="Editar usuario">
+                                            <i class="fas fa-edit me-1"></i> Editar
+                                        </a>
 
-                                    <a href="<?= site_url('usuarios/eliminar/'.$p['id']) ?>" 
-                                       onclick="return confirm('¿Está seguro de eliminar al usuario <?= $p['nombre'] ?>?')" 
-                                       class="btn-action btn-delete-user text-decoration-none"
-                                       title="Eliminar usuario">
-                                        <i class="fas fa-trash-alt me-1"></i> Eliminar
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                        <?php endforeach; ?>
+                                        <a href="<?= site_url('usuarios/eliminar/'.$p['id']) ?>" 
+                                           onclick="return confirm('¿Está seguro de eliminar al usuario <?= $p['nombre'] ?>?')" 
+                                           class="btn-action btn-delete-user text-decoration-none"
+                                           title="Eliminar usuario">
+                                            <i class="fas fa-trash-alt me-1"></i> Eliminar
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>
