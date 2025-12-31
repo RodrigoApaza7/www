@@ -32,6 +32,14 @@
                                 <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Nombre de usuario">
                             </div>
                         </div>
+
+                        <div class="mb-3">
+                            <label for="hobbie" class="form-label">Hobbies</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-at"></i></span>
+                                <input type="text" class="form-control" id="hobbie" name="hobbie" placeholder="Hobbies del usuario">
+                            </div>
+                        </div>
                         
                         <div class="mb-3">
                             <label for="rol" class="form-label">Rol</label>
