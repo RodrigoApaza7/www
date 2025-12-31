@@ -99,13 +99,22 @@
             color: #000;
             transform: translateY(-2px);
         }
-        /* BOTÓN DESACTIVAR (REEMPLAZA AL DE ELIMINAR) */
         .btn-disable {
-            background-color: #fd7e14; /* Color naranja fuerte/rojo suave */
+            background-color: #fd7e14;
             color: white;
         }
         .btn-disable:hover {
             background-color: #e8590c;
+            color: white;
+            transform: translateY(-2px);
+        }
+        /* ESTILO PARA EL BOTÓN ACTIVAR */
+        .btn-enable {
+            background-color: #198754;
+            color: white;
+        }
+        .btn-enable:hover {
+            background-color: #157347;
             color: white;
             transform: translateY(-2px);
         }
@@ -191,12 +200,21 @@
                                     <a href="<?= site_url('productos/editar/'.$p['id']) ?>" class="btn-action btn-edit">
                                         <i class="fas fa-edit me-1"></i>Editar
                                     </a>
-                                    <a href="<?= site_url('productos/desactivar/'.$p['id']) ?>" 
-                                       class="btn-action btn-disable" 
-                                       onclick="return confirm('¿Está seguro de desactivar este producto?')">
-                                        <i class="fas fa-ban me-1"></i>Desactivar
-                                    </a>
-                                </td>
+
+                                    <?php if ($p['estado'] == 1): ?>
+                                        <a href="<?= site_url('productos/desactivar/'.$p['id']) ?>" 
+                                           class="btn-action btn-disable" 
+                                           onclick="return confirm('¿Desactivar producto?')">
+                                            <i class="fas fa-ban me-1"></i>Desactivar
+                                        </a>
+                                    <?php else: ?>
+                                        <a href="<?= site_url('productos/activar/'.$p['id']) ?>" 
+                                           class="btn-action btn-enable" 
+                                           onclick="return confirm('¿Activar producto?')">
+                                            <i class="fas fa-check me-1"></i>Activar
+                                        </a>
+                                    <?php endif; ?>
+                                    </td>
                             </tr>
                             <?php endforeach; ?>
                         <?php endif; ?>
