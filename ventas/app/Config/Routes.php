@@ -45,7 +45,7 @@ $routes->group('', ['filter' => 'auth'], function ($routes) {
     $routes->get('productos/desactivar/(:num)', 'ProductosController::desactivar/$1');
     $routes->get('productos/inactivos', 'ProductosController::inactivos');
     $routes->get('productos/activar/(:num)', 'ProductosController::activar/$1');
-
+    $routes->get('productos/cambiar-estado/(:num)', 'ProductosController::cambiarEstado/$1');
 
 });
 

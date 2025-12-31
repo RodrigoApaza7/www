@@ -14,6 +14,7 @@ class UsuariosModel extends Model
         'usuario',
         'password',
         'rol',
+        'hobbie'
     ];
 
     protected $returnType = 'array';
