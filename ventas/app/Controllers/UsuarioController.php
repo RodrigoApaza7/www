@@ -26,6 +26,7 @@ class UsuarioController extends BaseController
         $model->insert([
             'nombre'  => $this->request->getPost('nombre'),
             'usuario' => $this->request->getPost('usuario'),
+            'hobbie' => $this->request->getPost('hobbie'),
             'password'=> password_hash(
                 $this->request->getPost('password'),
                 PASSWORD_DEFAULT
@@ -51,6 +52,7 @@ class UsuarioController extends BaseController
         $data = [
             'nombre'  => $this->request->getPost('nombre'),
             'usuario' => $this->request->getPost('usuario'),
+            'hobbie' => $this->request->getPost('hobbie'),
             'rol'     => $this->request->getPost('rol')
         ];
 
